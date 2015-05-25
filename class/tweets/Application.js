@@ -34,7 +34,8 @@ qx.Class.define("tweets.Application",
             this.desktop.setHeight(contentRowHeight);
         },
 
-        desktop : null,
+        desktop : null, 
+        statusBar : null,
 
         getGrid : function()
         {
@@ -52,6 +53,7 @@ qx.Class.define("tweets.Application",
             layout.setSpacing(0);
             container.setLayout(layout);
 
+            this.statusBar = new tweets.StatusBar();
             this.buildHeader(container); 
             this.buildContent(container);
             this.buildFooter(container);
@@ -122,7 +124,8 @@ qx.Class.define("tweets.Application",
             /**
              * Footer
              */
-            container.add(new qx.ui.core.Widget().set(
+            // container.add(new qx.ui.core.Widget().set(
+            container.add(this.statusBar.set(
             {
                 height : this.bottomRowHeight,
                 decorator : "main",
@@ -134,8 +137,6 @@ qx.Class.define("tweets.Application",
                 colSpan : 4
             });
         },
-
-        statusBar : null,
 
         setDefaultWindows : function()
         {
@@ -167,6 +168,7 @@ qx.Class.define("tweets.Application",
             window3.open();
             window3.moveTo(250, 550);
         },
+
         addToMenu : function(win, name, menu, icon)
         {
             var btn = new qx.ui.menu.Button(name, icon);
@@ -184,6 +186,7 @@ qx.Class.define("tweets.Application",
             }, this);
             menu.menu.add(btn);
         },
+
         addToStatusBar : function(win, name)
         {
             var button = new qx.ui.form.Button(name);
@@ -191,10 +194,10 @@ qx.Class.define("tweets.Application",
                 win.restore()
             }, this);
 
-            // this.statusBar.add(button);
+            this.statusBar.add(button);
             console.log("status btn: ", button);
             var listener = win.addListener("beforeClose", function(e) {
-                // this.statusBar.remove(button);
+                this.statusBar.remove(button);
                 win.removeListenerById(listener);
             }, this);
         }
