@@ -1,26 +1,20 @@
-
 qx.Class.define("tweets.AppWindow1",
 {
     extend : qx.ui.window.Window,
     construct : function()
     {
         var windowTitle = "First Window";
-
         this.base(arguments, windowTitle, "icon/16/apps/office-calendar.png");
         this.createWindow1();
     },
-
     members :
     {
-        moveToPosition : function()
-        {
+        moveToPosition : function() {
             this.moveTo(320, 100);
         },
-
         createWindow1 : function()
         {
             var windowTitle = "First Window";
-
             this.setLayout(new qx.ui.layout.VBox(10));
             this.setShowStatusbar(true);
             this.setStatus("Demo loaded");
@@ -43,17 +37,15 @@ qx.Class.define("tweets.AppWindow1",
 
             // Add a TabView
             var tabView = new qx.ui.tabview.TabView;
-            this.add(tabView, {flex:1});
-
+            this.add(tabView, {
+                flex : 1
+            });
             var page1 = new qx.ui.tabview.Page("Page 1");
             tabView.add(page1);
-
             var page2 = new qx.ui.tabview.Page("Page 2");
             tabView.add(page2);
-
             var page3 = new qx.ui.tabview.Page("Page 3");
             tabView.add(page3);
         }
     }
 });
-
