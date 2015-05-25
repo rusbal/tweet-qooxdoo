@@ -75,6 +75,8 @@ qx.Class.define("tweets.Application",
             });
         },
 
+        menuContainer : null,
+
         buildHeader : function(container)
         {
             /**
@@ -84,7 +86,8 @@ qx.Class.define("tweets.Application",
             // var topLeft = new qx.ui.core.Widget().set({ height: this.topRowHeight, decorator: "main", backgroundColor: "#ffffff" });
             this.menu = new tweets.Menu().set(
             {
-                height : this.topRowHeight,
+                height : 10,
+                width : 200,
                 decorator : "main",
                 backgroundColor : "#ffffff"
             });
@@ -93,9 +96,16 @@ qx.Class.define("tweets.Application",
             //     var target = menu.getContentElement().getDomElement(); 
             //     qx.bom.element.Style.set(target,"backgroundColor","red"); 
             // }, this); 
-            // topLeft.add(menu, {left: 0, top: 0, right: 0});
-            
-            container.add(this.menu, { row : 0, column : 0 });
+            // topLeft.add(menu, {left: 0, top: 0, right: 0}); 
+            // container.add(this.menu, { row : 0, column : 0 });
+
+
+            var mgr = new qx.ui.window.Manager();
+            this.menuContainer = new tweets.MenuDesktop(mgr).set({ height: this.topRowHeight });
+            this.menuContainer.add(this.menu);
+            container.add(this.menuContainer, { row : 0, column : 0 });
+
+
 
             container.add(new qx.ui.core.Widget().set(
             {

@@ -22,7 +22,7 @@ qx.Class.define("tweets.Menu",
         menu : null,
         buildMenu1 : function()
         {
-            var btn = new qx.ui.toolbar.MenuButton("Sample Menu");
+            var btn = new qx.ui.toolbar.MenuButton("Menu");
             this.add(btn);
             var leftButton = new qx.ui.menu.Button("Sub 1", "icon/16/actions/format-justify-left.png");
             var rightButton = new qx.ui.menu.Button("Sub 2", "icon/16/actions/format-justify-right.png");
