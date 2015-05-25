@@ -11,11 +11,7 @@ qx.Class.define("tweets.Menu",
         // this.add(btn);
 
         // btn.setMenu(this.menu);
-        this.buildMenu1();
-
-        // this.buildMenu2();
-
-        // this.buildMenu3();
+        this.buildMenu1(); 
     },
     members :
     {

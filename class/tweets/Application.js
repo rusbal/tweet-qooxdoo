@@ -45,7 +45,7 @@ qx.Class.define("tweets.Application",
             var container = new qx.ui.container.Composite().set(
             {
                 decorator : "main",
-                backgroundColor : "#000000"
+                backgroundColor : "#ffffff"
             });
             var layout = new qx.ui.layout.Grid();
             layout.setColumnFlex(1, 2);
@@ -86,6 +86,7 @@ qx.Class.define("tweets.Application",
             // var topLeft = new qx.ui.core.Widget().set({ height: this.topRowHeight, decorator: "main", backgroundColor: "#ffffff" });
             this.menu = new tweets.Menu().set(
             {
+                paddingLeft : 10,
                 height : 10,
                 width : 200,
                 decorator : "main",
@@ -97,23 +98,38 @@ qx.Class.define("tweets.Application",
             //     qx.bom.element.Style.set(target,"backgroundColor","red"); 
             // }, this); 
             // topLeft.add(menu, {left: 0, top: 0, right: 0}); 
-            // container.add(this.menu, { row : 0, column : 0 });
+            // container.add(this.menu, { row : 0, column : 0 }); 
 
-
+            /**
+             * Logo, Menu
+             */
             var mgr = new qx.ui.window.Manager();
             this.menuContainer = new tweets.MenuDesktop(mgr).set({ height: this.topRowHeight });
-            this.menuContainer.add(this.menu);
-            container.add(this.menuContainer, { row : 0, column : 0 });
+            this.menuContainer.add(this.menu); 
+            var label = new qx.ui.basic.Label().set({
+                "rich"  : true,
+                "value" : "<a href='#' style='color:black;text-decoration:none;' onClick='alert(1); return false;'>Home</a>"
+            });
+            this.menuContainer.add(label, { left : 150, top : 8 });
+            container.add(this.menuContainer, { row : 0, column : 0 }); 
 
+            /**
+             * Dashboard Buttons
+             */
+            var mgrd = new qx.ui.window.Manager();
+            var dashboard = new qx.ui.window.Desktop(mgrd).set({ height: this.topRowHeight });
 
+            var dashLabel = new qx.ui.basic.Label().set({ "rich"  : true, "value" : "<h1>My Dashboard</h1>" });
+            dashboard.add(dashLabel, { left : 20, top : -10 });
 
-            container.add(new qx.ui.core.Widget().set(
-            {
-                decorator : "main",
-                backgroundColor : "#ffffff"
-            }),
-            { row : 0, column : 1 });
+            var appLabel = new qx.ui.basic.Label().set({ "rich"  : true, "value" : "<h2>CreoERP Ver 0.01</h2>" });
+            dashboard.add(appLabel, { left : 850, top : -4 });
 
+            container.add(dashboard, { row : 0, column : 1 }); 
+
+            /**
+             * Help
+             */
             container.add(new qx.ui.core.Widget().set(
             {
                 decorator : "main",
@@ -121,6 +137,9 @@ qx.Class.define("tweets.Application",
             }),
             { row : 0, column : 2 });
 
+            /**
+             * Logout
+             */
             container.add(new qx.ui.core.Widget().set(
             {
                 decorator : "main",
