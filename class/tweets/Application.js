@@ -31,8 +31,11 @@ qx.Class.define("tweets.Application",
         __handleResize : function()
         {
             var contentRowHeight = window.innerHeight - (this.topRowHeight + this.bottomRowHeight) - 2;
-            this.contentWindow.setHeight(contentRowHeight);
+            this.desktop.setHeight(contentRowHeight);
         },
+
+        desktop : null,
+
         getGrid : function()
         {
             this.contentRowHeight = window.innerHeight - (this.topRowHeight + this.bottomRowHeight) - 2;
@@ -41,9 +44,7 @@ qx.Class.define("tweets.Application",
             var container = new qx.ui.container.Composite().set(
             {
                 decorator : "main",
-                backgroundColor : "#000000",
-                allowShrinkX : false,
-                allowShrinkY : false
+                backgroundColor : "#000000"
             });
             var layout = new qx.ui.layout.Grid();
             layout.setColumnFlex(1, 2);
@@ -51,12 +52,27 @@ qx.Class.define("tweets.Application",
             layout.setSpacing(0);
             container.setLayout(layout);
 
-            this.buildHeader(container);
+            this.buildHeader(container); 
             this.buildContent(container);
             this.buildFooter(container);
 
             return container;
         },
+
+        buildContent : function(container)
+        {
+            var windowManager = new qx.ui.window.Manager(); 
+            this.desktop = new tweets.TestWindow(windowManager); 
+            this.setDefaultWindows();
+
+            container.add(this.desktop,
+            {
+                row : 1,
+                column : 0,
+                colSpan : 4
+            });
+        },
+
         buildHeader : function(container)
         {
             /**
@@ -100,27 +116,7 @@ qx.Class.define("tweets.Application",
             }),
             { row : 0, column : 3 });
         },
-        buildContent : function(container)
-        {
-            /**
-             * Content Window
-             */
-            this.contentWindow = new qx.ui.core.Widget().set(
-            {
-                decorator : "main",
-                backgroundColor : "#eeeeee",
-                height : this.contentRowHeight
-            });
-            var decorator = new qx.ui.decoration.Decorator();
-            decorator.setBackgroundImage("resource/tweets/blue-background.jpg");
-            this.contentWindow.setDecorator(decorator);
-            container.add(this.contentWindow,
-            {
-                row : 1,
-                column : 0,
-                colSpan : 4
-            });
-        },
+
         buildFooter : function(container)
         { 
             /**
@@ -137,34 +133,37 @@ qx.Class.define("tweets.Application",
                 column : 0,
                 colSpan : 4
             });
-            this.otherMain();
         },
 
         statusBar : null,
 
-        otherMain : function()
+        setDefaultWindows : function()
         {
             var basic = new tweets.BasicWindow();
             this.addToStatusBar(basic, "Basic");
             this.addToMenu(basic, "Basic", this.menu, "icon/16/actions/document-open.png");
+            this.desktop.add(basic);
             basic.open();
             basic.moveTo(50, 150);
 
             var window1 = new tweets.AppWindow1();
             this.addToStatusBar(window1, "First");
             this.addToMenu(window1, "First", this.menu, "icon/16/actions/document-open.png");
+            this.desktop.add(window1);
             window1.open();
             window1.moveTo(350, 150);
 
             var window2 = new tweets.AppWindow2();
             this.addToStatusBar(window2, "Second");
             this.addToMenu(window2, "Second", this.menu, "icon/16/actions/document-open.png");
+            this.desktop.add(window2);
             window2.open();
             window2.moveTo(650, 150);
 
             var window3 = new tweets.AppWindow3();
             this.addToStatusBar(window3, "Third");
             this.addToMenu(window3, "Third", this.menu, "icon/16/actions/document-open.png");
+            this.desktop.add(window3);
             window3.open();
             window3.moveTo(250, 550);
         },
