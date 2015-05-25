@@ -1,4 +1,4 @@
-qx.Class.define("tweets.TestWindow",
+qx.Class.define("tweets.ContentDesktop",
 {
     extend : qx.ui.window.Desktop,
     construct : function(windowManager)

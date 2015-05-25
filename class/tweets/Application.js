@@ -64,7 +64,7 @@ qx.Class.define("tweets.Application",
         buildContent : function(container)
         {
             var windowManager = new qx.ui.window.Manager(); 
-            this.desktop = new tweets.TestWindow(windowManager); 
+            this.desktop = new tweets.ContentDesktop(windowManager); 
             this.setDefaultWindows();
 
             container.add(this.desktop,
@@ -124,7 +124,6 @@ qx.Class.define("tweets.Application",
             /**
              * Footer
              */
-            // container.add(new qx.ui.core.Widget().set(
             container.add(this.statusBar.set(
             {
                 height : this.bottomRowHeight,
