@@ -51,13 +51,13 @@ qx.Class.define("tweets.Application",
             layout.setSpacing(0);
             container.setLayout(layout);
 
-            this.getGrid1(container);
-            this.getGrid2(container);
-            this.getGrid3(container);
+            this.buildHeader(container);
+            this.buildContent(container);
+            this.buildFooter(container);
 
             return container;
         },
-        getGrid1 : function(container)
+        buildHeader : function(container)
         {
             /**
              * Header Menu
@@ -70,7 +70,6 @@ qx.Class.define("tweets.Application",
                 decorator : "main",
                 backgroundColor : "#ffffff"
             });
-            ;
 
             // menu.addListenerOnce("appear", function() { 
             //     var target = menu.getContentElement().getDomElement(); 
@@ -78,40 +77,30 @@ qx.Class.define("tweets.Application",
             // }, this); 
             // topLeft.add(menu, {left: 0, top: 0, right: 0});
             
-            container.add(this.menu,
-            {
-                row : 0,
-                column : 0
-            });
+            container.add(this.menu, { row : 0, column : 0 });
+
             container.add(new qx.ui.core.Widget().set(
             {
                 decorator : "main",
                 backgroundColor : "#ffffff"
             }),
-            {
-                row : 0,
-                column : 1
-            });
+            { row : 0, column : 1 });
+
             container.add(new qx.ui.core.Widget().set(
             {
                 decorator : "main",
                 backgroundColor : "#ffffff"
             }),
-            {
-                row : 0,
-                column : 2
-            });
+            { row : 0, column : 2 });
+
             container.add(new qx.ui.core.Widget().set(
             {
                 decorator : "main",
                 backgroundColor : "#ffffff"
             }),
-            {
-                row : 0,
-                column : 3
-            });
+            { row : 0, column : 3 });
         },
-        getGrid2 : function(container)
+        buildContent : function(container)
         {
             /**
              * Content Window
@@ -132,7 +121,7 @@ qx.Class.define("tweets.Application",
                 colSpan : 4
             });
         },
-        getGrid3 : function(container)
+        buildFooter : function(container)
         { 
             /**
              * Footer
