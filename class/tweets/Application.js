@@ -112,7 +112,7 @@ qx.Class.define("tweets.Application",
                 "rich"  : true,
                 "value" : "<a href='#' style='color:black;text-decoration:none;' onClick='alert(1); return false;'>Home</a>"
             });
-            this.menuContainer.add(label, { left : 150, top : 8 });
+            this.menuContainer.add(label, { right : 14, top : 8 });
             container.add(this.menuContainer, { row : 0, column : 0 }); 
 
             /**
