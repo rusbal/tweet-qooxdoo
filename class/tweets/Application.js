@@ -86,7 +86,6 @@ qx.Class.define("tweets.Application",
              * Header Menu
              */
 
-            // var topLeft = new qx.ui.core.Widget().set({ height: this.topRowHeight, decorator: "main", backgroundColor: "#EFEFEF" });
             this.menu = new tweets.Menu().set(
             {
                 paddingLeft : 10,
