@@ -35,11 +35,11 @@ qx.Class.define("tweets.Application",
         __handleResize : function()
         {
             this.contentRowHeight = window.innerHeight - (this.topRowHeight + this.bottomRowHeight) - 2;
-            this.desktop.setHeight(this.contentRowHeight);
+            window.$_desktop.setHeight(this.contentRowHeight);
         },
 
-        desktop : null, 
-        statusBar : null,
+        // desktop : null, 
+        // statusBar : null,
 
         getGrid : function()
         {
@@ -57,7 +57,7 @@ qx.Class.define("tweets.Application",
             layout.setSpacing(0);
             container.setLayout(layout);
 
-            this.statusBar = new tweets.StatusBar();
+            window.$_statusBar = new tweets.StatusBar();
             this.buildHeader(container); 
             this.buildContent(container);
             this.buildFooter(container);
@@ -68,10 +68,10 @@ qx.Class.define("tweets.Application",
         buildContent : function(container)
         {
             var windowManager = new qx.ui.window.Manager(); 
-            this.desktop = new tweets.ContentDesktop(windowManager); 
+            window.$_desktop = new tweets.ContentDesktop(windowManager); 
             this.setDefaultWindows();
 
-            container.add(this.desktop,
+            container.add(window.$_desktop,
             {
                 row : 1,
                 column : 0,
@@ -140,7 +140,7 @@ qx.Class.define("tweets.Application",
             /**
              * Footer
              */
-            container.add(this.statusBar.set(
+            container.add(window.$_statusBar.set(
             {
                 height : this.bottomRowHeight,
                 decorator : "main",
@@ -155,51 +155,33 @@ qx.Class.define("tweets.Application",
 
         setDefaultWindows : function()
         {
-            var basic = new tweets.BasicWindow();
+            var basic = new samples.BasicWindow();
             this.statusAddToBar(basic, "Basic");
             this.addToMenu(basic, "Basic", this.menu, "icon/16/actions/document-open.png");
-            this.desktop.add(basic);
+            window.$_desktop.add(basic);
             basic.open();
             basic.moveTo(50, 150);
 
-            var window1 = new tweets.AppWindow1();
+            var window1 = new samples.AppWindow1();
             this.statusAddToBar(window1, "First");
             this.addToMenu(window1, "First", this.menu, "icon/16/actions/document-open.png");
-            this.desktop.add(window1);
+            window.$_desktop.add(window1);
             window1.open();
             window1.moveTo(350, 150);
 
-            var window2 = new tweets.AppWindow2();
+            var window2 = new samples.AppWindow2();
             this.statusAddToBar(window2, "Second");
             this.addToMenu(window2, "Second", this.menu, "icon/16/actions/document-open.png");
-            this.desktop.add(window2);
+            window.$_desktop.add(window2);
             window2.open();
             window2.moveTo(650, 150);
 
-            var window3 = new tweets.AppWindow3();
+            var window3 = new samples.AppWindow3();
             this.statusAddToBar(window3, "Third");
             this.addToMenu(window3, "Third", this.menu, "icon/16/actions/document-open.png");
-            this.desktop.add(window3);
+            window.$_desktop.add(window3);
             window3.open();
             window3.moveTo(250, 550);
-        },
-
-        addToMenu : function(win, name, menu, icon)
-        {
-            var btn = new qx.ui.menu.Button(name, icon);
-            btn.addListener("execute", function() {
-                if (win.getMode() === "minimized" || win.getMode() === "closed")
-                {
-                    console.log("ADDING status bar: " + win.getMode())
-                    this.statusAddToBar(win, name);
-                    win.restore();
-                    win.moveTo(100, 100);  // Improve
-                } else
-                {
-                    console.log("NO status bar: " + win.getMode())
-                }
-            }, this);
-            menu.menu.add(btn);
         }
     }
 });

@@ -3,7 +3,7 @@ qx.Class.define("items.create.Index",
     extend : qx.ui.window.Window,
     construct : function()
     {
-        this.base(arguments, "Items : Create : Index");
+        this.base(arguments, "Items : Create : Index", "icon/16/apps/internet-feed-reader.png");
         this.createWindow();
     },
     members :

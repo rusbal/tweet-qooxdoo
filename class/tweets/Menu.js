@@ -1,6 +1,7 @@
 qx.Class.define("tweets.Menu",
 {
     extend : qx.ui.toolbar.ToolBar,
+    include : [mixins.MStatus],
     construct : function()
     {
         this.base(arguments);
@@ -33,7 +34,9 @@ qx.Class.define("tweets.Menu",
             var sub5 = new qx.ui.menu.Button("Manufacturers", "icon/16/actions/format-justify-fill.png");
             var sub6 = new qx.ui.menu.Button("Customer reviews", "icon/16/actions/format-justify-fill.png");
 
-            sub1.addListener("execute", this.saySomething);
+            var win1 = new items.create.Index;
+
+            sub1.addListener("execute", function(){this.openWindow(win1, "Items Create")}, this);
             sub2.addListener("execute", this.saySomething);
             sub3.addListener("execute", this.saySomething);
             sub4.addListener("execute", this.saySomething);

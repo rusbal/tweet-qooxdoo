@@ -1,4 +1,4 @@
-qx.Class.define("tweets.BasicWindow",
+qx.Class.define("samples.BasicWindow",
 {
     extend : qx.ui.window.Window,
     construct : function()
