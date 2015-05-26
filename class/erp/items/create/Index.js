@@ -1,9 +1,9 @@
-qx.Class.define("samples.BasicWindow",
+qx.Class.define("erp.items.create.Index",
 {
     extend : qx.ui.window.Window,
     construct : function()
     {
-        this.base(arguments, "Basic Window");
+        this.base(arguments, "Items : Create : Index", "icon/16/apps/internet-feed-reader.png");
         this.createWindow();
     },
     members :
@@ -19,3 +19,4 @@ qx.Class.define("samples.BasicWindow",
         }
     }
 });
+

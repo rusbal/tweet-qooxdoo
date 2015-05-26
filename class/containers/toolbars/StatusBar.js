@@ -1,4 +1,4 @@
-qx.Class.define("tweets.StatusBar",
+qx.Class.define("containers.toolbars.StatusBar",
 {
     extend : qx.ui.toolbar.ToolBar,
     construct : function()

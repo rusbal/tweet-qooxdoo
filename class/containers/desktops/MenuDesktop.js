@@ -1,4 +1,4 @@
-qx.Class.define("tweets.MenuDesktop",
+qx.Class.define("containers.desktops.MenuDesktop",
 {
     extend : qx.ui.window.Desktop,
     construct : function(windowManager)

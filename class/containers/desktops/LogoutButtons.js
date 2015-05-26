@@ -1,4 +1,4 @@
-qx.Class.define("tweets.LogoutButtons",
+qx.Class.define("containers.desktops.LogoutButtons",
 {
     extend : qx.ui.window.Desktop,
     construct : function()

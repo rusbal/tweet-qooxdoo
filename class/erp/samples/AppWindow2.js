@@ -1,4 +1,4 @@
-qx.Class.define("samples.AppWindow2",
+qx.Class.define("erp.samples.AppWindow2",
 {
     extend : qx.ui.window.Window,
     construct : function()

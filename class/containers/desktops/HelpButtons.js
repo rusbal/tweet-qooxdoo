@@ -1,4 +1,4 @@
-qx.Class.define("tweets.HelpButtons",
+qx.Class.define("containers.desktops.HelpButtons",
 {
     extend : qx.ui.window.Desktop,
     construct : function()

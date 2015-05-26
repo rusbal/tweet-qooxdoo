@@ -57,7 +57,7 @@ qx.Class.define("tweets.Application",
             layout.setSpacing(0);
             container.setLayout(layout);
 
-            window.$_statusBar = new tweets.StatusBar();
+            window.$_statusBar = new containers.toolbars.StatusBar();
             this.buildHeader(container); 
             this.buildContent(container);
             this.buildFooter(container);
@@ -68,7 +68,7 @@ qx.Class.define("tweets.Application",
         buildContent : function(container)
         {
             var windowManager = new qx.ui.window.Manager(); 
-            window.$_desktop = new tweets.ContentDesktop(windowManager); 
+            window.$_desktop = new containers.desktops.ContentDesktop(windowManager); 
             this.setDefaultWindows();
 
             container.add(window.$_desktop,
@@ -87,7 +87,7 @@ qx.Class.define("tweets.Application",
              * Header Menu
              */
 
-            this.menu = new tweets.Menu().set(
+            this.menu = new containers.toolbars.Menu().set(
             {
                 paddingLeft : 10,
                 height : 10,
@@ -107,7 +107,7 @@ qx.Class.define("tweets.Application",
              * Logo, Menu
              */
             var mgr = new qx.ui.window.Manager();
-            this.menuContainer = new tweets.MenuDesktop(mgr).set({ height: this.topRowHeight });
+            this.menuContainer = new containers.desktops.MenuDesktop(mgr).set({ height: this.topRowHeight });
             this.menuContainer.add(this.menu); 
             var label = new qx.ui.basic.Label().set({
                 "rich"  : true,
@@ -119,19 +119,19 @@ qx.Class.define("tweets.Application",
             /**
              * Dashboard Buttons
              */
-            var dashboard = new tweets.DesktopButtons().set({ height: this.topRowHeight }); 
+            var dashboard = new containers.desktops.DesktopButtons().set({ height: this.topRowHeight }); 
             container.add(dashboard, { row : 0, column : 1 }); 
 
             /**
              * Help
              */
-            var help = new tweets.HelpButtons().set({ height: this.topRowHeight }); 
+            var help = new containers.desktops.HelpButtons().set({ height: this.topRowHeight }); 
             container.add(help, { row : 0, column : 2 });
 
             /**
              * Logout
              */
-            var logout = new tweets.LogoutButtons().set({ height: this.topRowHeight }); 
+            var logout = new containers.desktops.LogoutButtons().set({ height: this.topRowHeight }); 
             container.add(logout, { row : 0, column : 3 });
         },
 
@@ -155,28 +155,28 @@ qx.Class.define("tweets.Application",
 
         setDefaultWindows : function()
         {
-            var basic = new samples.BasicWindow();
+            var basic = new erp.samples.BasicWindow();
             this.statusAddToBar(basic, "Basic");
             this.addToMenu(basic, "Basic", this.menu, "icon/16/actions/document-open.png");
             window.$_desktop.add(basic);
             basic.open();
             basic.moveTo(50, 150);
 
-            var window1 = new samples.AppWindow1();
+            var window1 = new erp.samples.AppWindow1();
             this.statusAddToBar(window1, "First");
             this.addToMenu(window1, "First", this.menu, "icon/16/actions/document-open.png");
             window.$_desktop.add(window1);
             window1.open();
             window1.moveTo(350, 150);
 
-            var window2 = new samples.AppWindow2();
+            var window2 = new erp.samples.AppWindow2();
             this.statusAddToBar(window2, "Second");
             this.addToMenu(window2, "Second", this.menu, "icon/16/actions/document-open.png");
             window.$_desktop.add(window2);
             window2.open();
             window2.moveTo(650, 150);
 
-            var window3 = new samples.AppWindow3();
+            var window3 = new erp.samples.AppWindow3();
             this.statusAddToBar(window3, "Third");
             this.addToMenu(window3, "Third", this.menu, "icon/16/actions/document-open.png");
             window.$_desktop.add(window3);
