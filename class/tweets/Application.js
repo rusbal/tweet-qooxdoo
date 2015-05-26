@@ -4,6 +4,7 @@
 qx.Class.define("tweets.Application",
 {
     extend : qx.application.Standalone,
+    include : [mixins.MStatus],
     members :
     {
         main : function()
@@ -155,28 +156,28 @@ qx.Class.define("tweets.Application",
         setDefaultWindows : function()
         {
             var basic = new tweets.BasicWindow();
-            this.addToStatusBar(basic, "Basic");
+            this.statusAddToBar(basic, "Basic");
             this.addToMenu(basic, "Basic", this.menu, "icon/16/actions/document-open.png");
             this.desktop.add(basic);
             basic.open();
             basic.moveTo(50, 150);
 
             var window1 = new tweets.AppWindow1();
-            this.addToStatusBar(window1, "First");
+            this.statusAddToBar(window1, "First");
             this.addToMenu(window1, "First", this.menu, "icon/16/actions/document-open.png");
             this.desktop.add(window1);
             window1.open();
             window1.moveTo(350, 150);
 
             var window2 = new tweets.AppWindow2();
-            this.addToStatusBar(window2, "Second");
+            this.statusAddToBar(window2, "Second");
             this.addToMenu(window2, "Second", this.menu, "icon/16/actions/document-open.png");
             this.desktop.add(window2);
             window2.open();
             window2.moveTo(650, 150);
 
             var window3 = new tweets.AppWindow3();
-            this.addToStatusBar(window3, "Third");
+            this.statusAddToBar(window3, "Third");
             this.addToMenu(window3, "Third", this.menu, "icon/16/actions/document-open.png");
             this.desktop.add(window3);
             window3.open();
@@ -190,7 +191,7 @@ qx.Class.define("tweets.Application",
                 if (win.getMode() === "minimized" || win.getMode() === "closed")
                 {
                     console.log("ADDING status bar: " + win.getMode())
-                    this.addToStatusBar(win, name);
+                    this.statusAddToBar(win, name);
                     win.restore();
                     win.moveTo(100, 100);  // Improve
                 } else
@@ -199,21 +200,6 @@ qx.Class.define("tweets.Application",
                 }
             }, this);
             menu.menu.add(btn);
-        },
-
-        addToStatusBar : function(win, name)
-        {
-            var button = new qx.ui.form.Button(name);
-            button.addListener("execute", function(e) {
-                win.restore()
-            }, this);
-
-            this.statusBar.add(button);
-            console.log("status btn: ", button);
-            var listener = win.addListener("beforeClose", function(e) {
-                this.statusBar.remove(button);
-                win.removeListenerById(listener);
-            }, this);
         }
     }
 });
