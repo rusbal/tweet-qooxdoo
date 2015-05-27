@@ -7,9 +7,24 @@ qx.Class.define("tweets.Application",
     include : [mixins.MStatus],
     members :
     {
+        contentWindow : null,
+        menu : null,
+        topRowHeight : 100,
+        bottomRowHeight : 30,
+        contentRowHeight : null,
+
+        initGlobals : function()
+        {
+            window.$_erp = [];
+            window.$_desktop = null;
+            window.$_statusBar = null;
+        },
+
         main : function()
         {
             this.base(arguments);
+            this.initGlobals();
+
             var doc = this.getRoot()
             var scroll = new qx.ui.container.Scroll();
             doc.add(scroll, {
@@ -26,20 +41,12 @@ qx.Class.define("tweets.Application",
 
             this.__handleResize();
         },
-        contentWindow : null,
-        menu : null,
-        topRowHeight : 100,
-        bottomRowHeight : 30,
-        contentRowHeight : null,
 
         __handleResize : function()
         {
             this.contentRowHeight = window.innerHeight - (this.topRowHeight + this.bottomRowHeight) - 2;
             window.$_desktop.setHeight(this.contentRowHeight);
         },
-
-        // desktop : null, 
-        // statusBar : null,
 
         getGrid : function()
         {
@@ -155,33 +162,33 @@ qx.Class.define("tweets.Application",
 
         setDefaultWindows : function()
         {
-            var basic = new erp.samples.BasicWindow();
-            this.statusAddToBar(basic, "Basic");
-            this.addToMenu(basic, "Basic", this.menu, "icon/16/actions/document-open.png");
-            window.$_desktop.add(basic);
-            basic.open();
-            basic.moveTo(50, 150);
+            var index = window.$_erp["items.create.Index"] = new erp.items.create.Index;
+            this.statusAddToBar("items.create.Index", "Items create");
+            // this.addToMenu(index, "Items create", this.menu, "icon/16/actions/document-open.png");
+            window.$_desktop.add(index);
+            index.open();
+            index.moveTo(50, 150);
 
-            var window1 = new erp.samples.AppWindow1();
-            this.statusAddToBar(window1, "First");
-            this.addToMenu(window1, "First", this.menu, "icon/16/actions/document-open.png");
-            window.$_desktop.add(window1);
-            window1.open();
-            window1.moveTo(350, 150);
-
-            var window2 = new erp.samples.AppWindow2();
-            this.statusAddToBar(window2, "Second");
-            this.addToMenu(window2, "Second", this.menu, "icon/16/actions/document-open.png");
-            window.$_desktop.add(window2);
-            window2.open();
-            window2.moveTo(650, 150);
-
-            var window3 = new erp.samples.AppWindow3();
-            this.statusAddToBar(window3, "Third");
-            this.addToMenu(window3, "Third", this.menu, "icon/16/actions/document-open.png");
-            window.$_desktop.add(window3);
-            window3.open();
-            window3.moveTo(250, 550);
+            // var window1 = new erp.samples.AppWindow1();
+            // this.statusAddToBar(window1, "First");
+            // this.addToMenu(window1, "First", this.menu, "icon/16/actions/document-open.png");
+            // window.$_desktop.add(window1);
+            // window1.open();
+            // window1.moveTo(350, 150);
+            //
+            // var window2 = new erp.samples.AppWindow2();
+            // this.statusAddToBar(window2, "Second");
+            // this.addToMenu(window2, "Second", this.menu, "icon/16/actions/document-open.png");
+            // window.$_desktop.add(window2);
+            // window2.open();
+            // window2.moveTo(650, 150);
+            //
+            // var window3 = new erp.samples.AppWindow3();
+            // this.statusAddToBar(window3, "Third");
+            // this.addToMenu(window3, "Third", this.menu, "icon/16/actions/document-open.png");
+            // window.$_desktop.add(window3);
+            // window3.open();
+            // window3.moveTo(250, 550);
         }
     }
 });

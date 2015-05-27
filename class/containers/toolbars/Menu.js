@@ -19,10 +19,9 @@ qx.Class.define("containers.toolbars.Menu",
             this.menu = new qx.ui.menu.Menu();
 
             this.menu.add(this.itemsMenu()); 
-            this.menu.add(new qx.ui.menu.Separator());
 
+            this.menu.add(new qx.ui.menu.Separator()); 
             this.menu.add(this.customersMenu()); 
-            this.menu.add(new qx.ui.menu.Separator());
         },
 
         itemsMenu : function()
@@ -34,9 +33,7 @@ qx.Class.define("containers.toolbars.Menu",
             var sub5 = new qx.ui.menu.Button("Manufacturers", "icon/16/actions/format-justify-fill.png");
             var sub6 = new qx.ui.menu.Button("Customer reviews", "icon/16/actions/format-justify-fill.png");
 
-            var win1 = new erp.items.create.Index;
-
-            sub1.addListener("execute", function(){this.openWindow(win1, "Items Create")}, this);
+            sub1.addListener("execute", function(){this.openWindow("items.create.Index", "Items Create")}, this);
             sub2.addListener("execute", this.saySomething);
             sub3.addListener("execute", this.saySomething);
             sub4.addListener("execute", this.saySomething);

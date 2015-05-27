@@ -2,17 +2,18 @@ qx.Mixin.define("mixins.MStatus",
 {
     members :
     {
-        statusAddToBar : function(win, name)
+        statusAddToBar : function(winName, name)
         {
+            var win = window.$_erp[winName];
             var button = new qx.ui.form.Button(name);
             button.addListener("execute", function(e) {
                 win.restore()
             }, this);
 
             window.$_statusBar.add(button);
-            console.log("status btn: ", button);
             var listener = win.addListener("beforeClose", function(e) {
                 window.$_statusBar.remove(button);
+                delete window.$_erp[winName];
                 win.removeListenerById(listener);
             }, this);
         },
@@ -26,21 +27,28 @@ qx.Mixin.define("mixins.MStatus",
             menu.menu.add(btn);
         },
 
-        openWindow : function(win, name)
+        openWindow : function(winName, name)
         {
-            if (win.getMode() === "minimized" || win.getMode() === "closed")
+            // if (win.getMode() === "minimized" || win.getMode() === "closed")
+            if (window.$_erp[winName] === undefined)
             {
-                console.log("> ADDING status bar: " + win.getMode())
-                this.statusAddToBar(win, name);
+                /**
+                 * Create window
+                 */
+                var exec = "window.$_erp[\"" + winName + "\"] = new erp." + winName + ";";
+                var win = ( new Function( 'return ' + exec ) )();
+
+                console.log("> ADDING status bar")
+                this.statusAddToBar(winName, name);
                 window.$_desktop.add(win);
-                win.restore();
 
                 // TODO: Improve auto-positioning of windows
                 win.moveTo(100, 100);
             } else
             {
-                console.log(".NO status bar: " + win.getMode())
+                console.log(".NO status bar")
             }
+            window.$_erp[winName].restore();
         }
     }
 });
