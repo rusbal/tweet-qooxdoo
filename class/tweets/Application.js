@@ -184,17 +184,17 @@ qx.Class.define("tweets.Application",
 
         setDefaultWindows : function()
         {
-            var index = window.$_erp["customers.create.Index"] = new erp.customers.create.Index;
-            this.statusAddToBar("customers.create.Index", "Customers create");
-            window.$_desktop.add(index);
-            index.open();
-            index.moveTo(50, 150);
+            // var window2 = window.$_erp["samples.AppWindow2"] = new erp.samples.AppWindow2;
+            // this.statusAddToBar("samples.AppWindow2", "Second");
+            // window.$_desktop.add(window2);
+            // window2.open();
+            // window2.moveTo(10, 590);
             
-            var window2 = window.$_erp["samples.AppWindow2"] = new erp.samples.AppWindow2;
-            this.statusAddToBar("samples.AppWindow2", "Second");
-            window.$_desktop.add(window2);
-            window2.open();
-            window2.moveTo(650, 150);
+            // var index = window.$_erp["customers.create.Index"] = new erp.customers.create.Index;
+            // this.statusAddToBar("customers.create.Index", "Customers create");
+            // window.$_desktop.add(index);
+            // index.open();
+            // index.moveTo(10, 10);
         }
     }
 });
