@@ -22,6 +22,9 @@ qx.Class.define("containers.toolbars.Menu",
 
             this.menu.add(new qx.ui.menu.Separator()); 
             this.menu.add(this.customersMenu()); 
+
+            this.menu.add(new qx.ui.menu.Separator()); 
+            this.menu.add(this.samplesMenu()); 
         },
 
         itemsMenu : function()
@@ -62,7 +65,7 @@ qx.Class.define("containers.toolbars.Menu",
             var sub2 = new qx.ui.menu.Button("Customers", "icon/16/actions/format-justify-right.png");
             var sub3 = new qx.ui.menu.Button("Orders", "icon/16/actions/format-justify-center.png");
 
-            sub1.addListener("execute", this.saySomething);
+            sub1.addListener("execute", function(){this.openWindow("customers.create.Index", "Customers Create")}, this);
             sub2.addListener("execute", this.saySomething);
             sub3.addListener("execute", this.saySomething);
 
@@ -74,6 +77,30 @@ qx.Class.define("containers.toolbars.Menu",
             submenu.add(sub3);
 
             return new qx.ui.menu.Button("Customers", "icon/16/actions/format-justify-fill.png", null, submenu);
+        },
+
+        samplesMenu : function()
+        { 
+            var sub1 = new qx.ui.menu.Button("First Window", "icon/16/actions/format-justify-left.png");
+            var sub2 = new qx.ui.menu.Button("Second Window", "icon/16/actions/format-justify-right.png");
+            var sub3 = new qx.ui.menu.Button("Third Window", "icon/16/actions/format-justify-center.png");
+            var sub4 = new qx.ui.menu.Button("Basic Window", "icon/16/actions/format-justify-center.png");
+
+            sub1.addListener("execute", function(){this.openWindow("samples.AppWindow1", "First Window")}, this);
+            sub2.addListener("execute", function(){this.openWindow("samples.AppWindow2", "Second Window")}, this);
+            sub3.addListener("execute", function(){this.openWindow("samples.AppWindow3", "Third Window")}, this);
+            sub4.addListener("execute", function(){this.openWindow("samples.BasicWindow", "Basic Window")}, this);
+
+            var submenu = new qx.ui.menu.Menu;
+            submenu.add(sub1);
+            submenu.add(new qx.ui.menu.Separator());
+            submenu.add(sub2);
+            submenu.add(new qx.ui.menu.Separator());
+            submenu.add(sub3);
+            submenu.add(new qx.ui.menu.Separator());
+            submenu.add(sub4);
+
+            return new qx.ui.menu.Button("Sample Windows", "icon/16/actions/format-justify-fill.png", null, submenu);
         },
 
         saySomething : function() {
