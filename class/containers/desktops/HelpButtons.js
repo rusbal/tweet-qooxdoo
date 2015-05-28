@@ -1,3 +1,6 @@
+/**
+ * @lint ignoreDeprecated(alert)
+ */
 qx.Class.define("containers.desktops.HelpButtons",
 {
     extend : qx.ui.window.Desktop,

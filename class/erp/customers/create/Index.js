@@ -1,3 +1,6 @@
+/**
+ * @lint ignoreDeprecated(alert)
+ */
 qx.Class.define("erp.customers.create.Index",
 {
     extend : qx.ui.window.Window,
