@@ -1,74 +1,19 @@
-qx.Class.define("erp.samples.AppWindow2",
+qx.Class.define("erp.samples.composite.Box",
 {
-    extend : qx.ui.window.Window,
+    extend : qx.ui.container.Composite,
     construct : function()
     {
-        var windowTitle = "Second Window";
-        this.base(arguments, windowTitle, "icon/16/apps/internet-feed-reader.png");
-        this.basicGroup();
-
-        // var a = new erp.samples.composite.Box;
-        // this.add(a);
-
-        // // create the composite
-        // var composite = new qx.ui.container.Composite()
-        //
-        // // configure it with a horizontal box layout with a spacing of '5'
-        // composite.setLayout(new qx.ui.layout.HBox(5));
-        //
-        // // add some children
-        // composite.add(new qx.ui.basic.Label("Name: "));
-        // composite.add(new qx.ui.form.TextField());
-        //
-        // this.add(composite);
+        this.base(arguments); 
+        this.setLayout(new qx.ui.layout.HBox(10)); 
+        this.createWindow();
     },
     members :
     {
-        moveToPosition : function() {
-            this.moveTo(600, 100);
-        },
-        basicGroup : function()
+        createWindow : function()
         {
-            this.setLayout(new qx.ui.layout.VBox(10));
-
-            var box = new qx.ui.container.Composite;
-            box.setLayout(new qx.ui.layout.HBox(10));
-            this.add(box, {
-                flex : 1
-            });
-
             var basicSettings = new qx.ui.groupbox.GroupBox("Basics");
             basicSettings.setLayout(new qx.ui.layout.VBox(4));
-            box.add(basicSettings, {
-                flex : 1
-            });
-
-            var showClose = new qx.ui.form.CheckBox("Show Close");
-            showClose.setValue(true);
-            basicSettings.add(showClose);
-
-            var showStatusbar = new qx.ui.form.CheckBox("Show Statusbar");
-            showStatusbar.setValue(false);
-            basicSettings.add(showStatusbar);
-        },
-        createWindow2 : function()
-        {
-            var windowTitle = "Second Window";
-
-            // var this = new qx.ui.window.Window(windowTitle, "icon/16/apps/internet-feed-reader.png");
-            this.setLayout(new qx.ui.layout.VBox(10));
-            this.setStatus("Application is ready");
-            this.moveToPosition();
-            var atom = new qx.ui.basic.Atom("The second window", "icon/22/apps/utilities-calculator.png");
-            this.add(atom);
-            var box = new qx.ui.container.Composite;
-            box.setLayout(new qx.ui.layout.HBox(10));
-            this.add(box, {
-                flex : 1
-            });
-            var basicSettings = new qx.ui.groupbox.GroupBox("Basics");
-            basicSettings.setLayout(new qx.ui.layout.VBox(4));
-            box.add(basicSettings, {
+            this.add(basicSettings, {
                 flex : 1
             });
             var showClose = new qx.ui.form.CheckBox("Show Close");
@@ -115,7 +60,7 @@ qx.Class.define("erp.samples.AppWindow2",
             basicSettings.add(showStatusbar);
             var resize = new qx.ui.groupbox.GroupBox("Resizable");
             resize.setLayout(new qx.ui.layout.VBox(4));
-            box.add(resize, {
+            this.add(resize, {
                 flex : 1
             });
             var resizeFrame = new qx.ui.form.CheckBox("Use resize frame");
@@ -136,7 +81,7 @@ qx.Class.define("erp.samples.AppWindow2",
             }
             var move = new qx.ui.groupbox.GroupBox("Moveable");
             move.setLayout(new qx.ui.layout.VBox(4));
-            box.add(move, {
+            this.add(move, {
                 flex : 1
             });
             var movable = new qx.ui.form.CheckBox("Movable");
@@ -153,3 +98,4 @@ qx.Class.define("erp.samples.AppWindow2",
         }
     }
 });
+

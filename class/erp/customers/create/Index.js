@@ -4,23 +4,28 @@ qx.Class.define("erp.customers.create.Index",
     construct : function()
     {
         this.base(arguments, "Create new customer", "icon/16/apps/internet-feed-reader.png");
+
         this.moveTo(170, 220);
         this.setWidth(750);
-        this.setHeight(600);
-        this.createWindow();
+        this.setHeight(800);
+
+        this.setLayout(new qx.ui.layout.VBox());
+
+        this.container = new qx.ui.tabview.TabView;
+        this.add(this.container, {
+            flex : 1
+        });
+
+        this.tabOne();
     },
     members :
     {
-        createWindow : function()
-        {
-            this.setLayout(new qx.ui.layout.VBox(10));
-            var container = new qx.ui.tabview.TabView;
-            this.add(container, {
-                flex : 1
-            });
+        container : null,
 
+        tabOne : function()
+        { 
             var page = new erp.customers.create.pages.Data;
-            container.add(page);
+            this.container.add(page);
         }
     }
 });
