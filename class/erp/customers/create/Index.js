@@ -19,16 +19,16 @@ qx.Class.define("erp.customers.create.Index",
             flex : 1
         });
 
-        this.tabOne();
+        this.tabs();
     },
     members :
     {
         container : null,
 
-        tabOne : function()
+        tabs : function()
         { 
-            var page = new erp.customers.create.pages.Data;
-            this.container.add(page);
+            this.container.add(new erp.customers.create.pages.Data);
+            // this.container.add(new erp.customers.create.pages.Data2);
         }
     }
 });

@@ -1,103 +1,116 @@
-qx.Class.define("erp.customers.create.pages.Data",
-{
-    extend : qx.ui.tabview.Page,
-    construct : function()
-    {
+qx.Class.define("erp.customers.create.pages.Data", {
+
+    extend: qx.ui.tabview.Page,
+
+    include: [
+        mixins.shortcuts.MForm,
+        erp.customers.create.pages.validators.MData
+    ],
+
+    construct: function() {
         this.base(arguments, "Data");
-        this.setLayout(new qx.ui.layout.VBox(0));
+        this.setLayout(new qx.ui.layout.HBox(10));
 
-        this.groupLayout();
-        this.groupForm();
+        this.initFields();
+
+        this.prepareLayout();
+        this.basicInformation();
     },
-    members :
-    {
-        group : null,
 
-        groupLayout : function()
-        {
-            var box = new qx.ui.container.Composite;
-            box.setLayout(new qx.ui.layout.HBox(10));
-            this.add(box, {
-                flex : 1
-            });
+    members: {
+        group: null,
 
+        __username  : null,
+        __email     : null,
+        __password1 : null,
+        __password2 : null,
+        __accepted  : null,
+
+        initFields: function() {
+            this.__username  = this._(new qx.ui.form.TextField(), true, "username");
+            this.__email     = this._(new qx.ui.form.TextField(), false, "email address");
+            this.__password1 = this._(new qx.ui.form.TextField(), false, "password");
+            this.__password2 = this._(new qx.ui.form.TextField(), false, "password");
+            this.__accepted  = this._(new qx.ui.form.CheckBox("Accept"), true, "");
+        },
+
+        prepareLayout: function() {
             var layout = new qx.ui.layout.Grid(9, 5);
-            layout.setColumnAlign(0, "right", "top");
-            layout.setColumnAlign(2, "right", "top");
-            layout.setColumnWidth(1, 160);
-            layout.setColumnWidth(2, 72);
-            layout.setColumnWidth(3, 108);
+            // layout.setColumnAlign(0, "right", "column");
+            // layout.setColumnAlign(2, "right", "column");
+            layout.setColumnWidth(0, 100);
+            layout.setColumnWidth(1, 400);
+            // layout.setColumnWidth(2, 72);
+            // layout.setColumnWidth(3, 108);
 
-            this.group = new qx.ui.groupbox.GroupBox("Basics");
+            this.group = new qx.ui.groupbox.GroupBox("Basic information");
             this.group.setLayout(layout);
-            box.add(this.group, {
-                flex : 1
+            this.add(this.group, {
+                flex: 1
             });
         },
 
-        groupForm : function()
-        { 
-            var labels = ["First Name", "Last Name", "City", "Country", "Notes"];
-            for (var i=0; i < labels.length; i++) {
-              this.group.add(new qx.ui.basic.Label(labels[i]).set({
-                allowShrinkX: false,
-                paddingTop: 3
-              }), {row: i, column : 0});
-            }
+        basicInformation: function() {
+            this.group.add(this.__username, { row: 1, column: 0 }); 
+            this.group.add(this.__email, { row: 2, column: 0 }); 
+            this.group.add(this.__password1, { row: 3, column: 0 }); 
+            this.group.add(this.__password2, { row: 4, column: 0 });
+            this.group.add(this.__accepted, { row: 6, column: 0 });
 
-            var inputs = ["John", "Smith", "New York", "USA"];
-            for (var i=0; i < inputs.length; i++) {
-              this.group.add(new qx.ui.form.TextField(inputs[i]), {row:i, column:1});
-            } 
 
-            // text area
-            this.group.add(new qx.ui.form.TextArea().set({
-              height: 250
-            }), {row:4, column:1, colSpan: 3}); 
+            // create the form manager
+            var manager = new qx.ui.form.validation.Manager();
+            manager.add(this.__username, new erp.customers.create.pages.helpers.Username);
+            manager.add(this.__email, qx.util.Validate.email());
+            manager.add(this.__password1, this.passwordLengthValidator);
+            manager.add(this.__password2, this.passwordLengthValidator);
+            manager.add(this.__accepted);
 
-            // radio buttons
-            this.group.add(new qx.ui.basic.Label("Sex").set({
-              allowShrinkX: false,
-              paddingTop: 3
-            }), {row:0, column:2});
+            // add a validator to the manager itself (passwords mut be equal)
+            var password1 = this.__password1;
+            var password2 = this.__password2;
 
-            var female = new qx.ui.form.RadioButton("female");
-            var male = new qx.ui.form.RadioButton("male");
-
-            var mgr = new qx.ui.form.RadioGroup();
-            mgr.add(female, male);
-
-            this.group.add(female, {row:0, column:3});
-            this.group.add(male, {row:1, column:3});
-            male.setValue(true); 
-
-            // check boxes
-            this.group.add(new qx.ui.basic.Label("Hobbies").set({
-              allowShrinkX: false,
-              paddingTop: 3
-            }), {row:2, column:2});
-            this.group.add(new qx.ui.form.CheckBox("Reading"), {row:2, column:3});
-            this.group.add(new qx.ui.form.CheckBox("Swimming").set({
-              enabled: false
-            }), {row:3, column:3}); 
-
-            // buttons
-            var paneLayout = new qx.ui.layout.HBox().set({
-              spacing: 4,
-              alignX : "right"
+            manager.setValidator(function(items) {
+                var valid = password1.getValue() == password2.getValue();
+                if (!valid) {
+                    var message = "Passwords must be equal.";
+                    password1.setInvalidMessage(message);
+                    password2.setInvalidMessage(message);
+                    password1.setValid(false);
+                    password2.setValid(false);
+                }
+                return valid;
             });
-            var buttonPane = new qx.ui.container.Composite(paneLayout).set({
-              paddingTop: 11
-            });
-            this.group.add(buttonPane, {row:5, column: 0, colSpan: 4});
 
-            var okButton = new qx.ui.form.Button("OK", "icon/22/actions/dialog-apply.png");
-            okButton.addState("default");
-            buttonPane.add(okButton);
+            var send = new qx.ui.form.Button("Send");
+            this.group.add(send, { row: 7, column: 0 });
+            send.addListener("execute", function() {
+                // return type can not be used because of async validation
+                manager.validate()
+            }, this);
 
-            var cancelButton = new qx.ui.form.Button("Cancel", "icon/22/actions/dialog-cancel.png");
-            buttonPane.add(cancelButton);
+
+            // add a listener to the form manager for the validation complete
+            manager.addListener("complete", function() {
+                if (manager.getValid()) {
+                    alert("You can send...");
+                } else {
+                    alert(manager.getInvalidMessages().join("\n"));
+                }
+            }, this);
+
+            /* ***********************************************
+             * DESCRIPTIONS
+             * ********************************************* */
+            // List Selection sync description
+            var notEmptyDescription = new qx.ui.basic.Label();
+            notEmptyDescription.setRich(true);
+            notEmptyDescription.setValue(
+                "<b>Client side form validation</b><br/>"
+                + "All fields are required. Some by a custom validator, some by a "
+                + "predefined validator and some by the required flag."
+            );
+            this.group.add(notEmptyDescription, { row: 0, column: 0, colSpan: 2 });
         }
     }
 });
-
