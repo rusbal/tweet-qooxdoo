@@ -38,13 +38,11 @@ qx.Mixin.define("mixins.shortcuts.MForm",
             // s.addListener("changeSelection", function(e) {});
 
             if (withPreOption !== false) {
-                if (preOption !== null) {
+                if (preOption !== undefined) {
                     s.add(new qx.ui.form.ListItem(preOption));
                 } else {
                     s.add(new qx.ui.form.ListItem(""));
                 }
-            } else {
-                s.add(new qx.ui.form.ListItem(""));
             }
 
             for (var i = 0; i < options.length; i += 1) {
