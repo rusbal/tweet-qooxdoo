@@ -5,16 +5,12 @@ qx.Class.define("erp.customers.create.Index",
 {
     extend : qx.ui.window.Window,
 
-    include : [
-        mixins.MSettings
-    ],
-
     construct : function()
     {
         this.base(arguments, "Create new customer", "icon/16/apps/internet-feed-reader.png");
 
         this.moveTo(170, 220);
-        this.setHeight(this.availableWindowHeight());
+        // this.setHeight(this.availableWindowHeight());
 
         this.setLayout(new qx.ui.layout.VBox());
 

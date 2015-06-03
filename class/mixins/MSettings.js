@@ -5,7 +5,7 @@ qx.Mixin.define("mixins.MSettings",
         topRowHeight : 100,
         bottomRowHeight : 30,
 
-        lessTabAdjustment : 120,
+        lessTabAdjustment : 150,
 
         availableWindowHeight : function()
         {

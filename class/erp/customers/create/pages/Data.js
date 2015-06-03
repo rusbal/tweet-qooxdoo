@@ -4,6 +4,7 @@ qx.Class.define("erp.customers.create.pages.Data", {
 
     include: [
         mixins.MAjax,
+        mixins.MSettings,
         mixins.shortcuts.MForm,
         mixins.data.MCustomer,
         erp.customers.create.pages.validators.MData
@@ -11,7 +12,17 @@ qx.Class.define("erp.customers.create.pages.Data", {
 
     construct: function() {
         this.base(arguments, "Data");
-        this.setLayout(new qx.ui.layout.VBox(10));
+        this.setLayout(new qx.ui.layout.VBox());
+
+        var scroller = new qx.ui.container.Scroll().set({
+            height: this.availableTabWindowHeight(),
+            width: 750
+        });
+        this.add(scroller);
+
+        this.composite = new qx.ui.container.Composite()
+        this.composite.setLayout(new qx.ui.layout.VBox(10));
+        scroller.add(this.composite);
 
         this.basicInformation();
         this.comment();
@@ -21,6 +32,8 @@ qx.Class.define("erp.customers.create.pages.Data", {
     },
 
     members: {
+
+        composite : null,
 
         /**
          * Called from MAjax.js
@@ -44,7 +57,15 @@ qx.Class.define("erp.customers.create.pages.Data", {
                 zipCode       : this._zipCode.getValue(),
                 city          : this._city.getValue(),
                 country       : this._getSelectedValue(this._country),
-                dateOfBirth   : this._dateOfBirth.getValue()
+                dateOfBirth   : this._dateOfBirth.getValue(),
+                phone         : this._phone.getValue(),
+                fax           : this._fax.getValue(),
+                text1         : this._text1.getValue(),
+                text2         : this._text2.getValue(),
+                text3         : this._text3.getValue(),
+                text4         : this._text4.getValue(),
+                text5         : this._text5.getValue(),
+                text6         : this._text6.getValue()
             };
         },
 
@@ -169,7 +190,7 @@ qx.Class.define("erp.customers.create.pages.Data", {
 
             this._basicGroup = new qx.ui.groupbox.GroupBox("Basic information");
             this._basicGroup.setLayout(layout);
-            this.add(this._basicGroup);
+            this.composite.add(this._basicGroup);
         },
 
         basicInformationInitFields: function() {
@@ -189,13 +210,15 @@ qx.Class.define("erp.customers.create.pages.Data", {
             this._basicGroup.add(this.makeLabel("Email", true),            { row: 0, column: 0 }); 
             this._basicGroup.add(this.makeLabel("Customer group", true),   { row: 1, column: 0 }); 
             this._basicGroup.add(this.makeLabel("Shop", false),            { row: 2, column: 0 }); 
-            this._basicGroup.add(this.makeLabel("Active", false),          { row: 0, column: 2 }); 
-            this._basicGroup.add(this.makeLabel("Password", true),         { row: 1, column: 2 }); 
-            this._basicGroup.add(this.makeLabel("Confirm password", true), { row: 2, column: 2 }); 
 
             this._basicGroup.add(this._email,           { row: 0, column: 1 }); 
             this._basicGroup.add(this._customerGroup,   { row: 1, column: 1 }); 
             this._basicGroup.add(this._shop,            { row: 2, column: 1 });
+
+            this._basicGroup.add(this.makeLabel("Active", false),          { row: 0, column: 2 }); 
+            this._basicGroup.add(this.makeLabel("Password", true),         { row: 1, column: 2 }); 
+            this._basicGroup.add(this.makeLabel("Confirm password", true), { row: 2, column: 2 }); 
+
             this._basicGroup.add(this._active,          { row: 0, column: 3 });
             this._basicGroup.add(this._password,        { row: 1, column: 3 }); 
             this._basicGroup.add(this._confirmPassword, { row: 2, column: 3 });
@@ -214,7 +237,7 @@ qx.Class.define("erp.customers.create.pages.Data", {
             
             this._commentGroup = new qx.ui.groupbox.GroupBox("Comment");
             this._commentGroup.setLayout(layout);
-            this.add(this._commentGroup);
+            this.composite.add(this._commentGroup);
         },
 
         commentInitFields: function() {
@@ -247,6 +270,14 @@ qx.Class.define("erp.customers.create.pages.Data", {
         _city         : null,
         _country      : null,
         _dateOfBirth  : null,
+        _phone        : null,
+        _fax          : null,
+        _text1        : null,
+        _text2        : null,
+        _text3        : null,
+        _text4        : null,
+        _text5        : null,
+        _text6        : null,
 
         billingInformationLayout: function() {
             var layout = new qx.ui.layout.Grid(9, 5);
@@ -266,7 +297,7 @@ qx.Class.define("erp.customers.create.pages.Data", {
 
             this._billingGroup = new qx.ui.groupbox.GroupBox("Billing information");
             this._billingGroup.setLayout(layout);
-            this.add(this._billingGroup);
+            this.composite.add(this._billingGroup);
         },
 
         billingInformationInitFields: function() {
@@ -279,6 +310,14 @@ qx.Class.define("erp.customers.create.pages.Data", {
             this._city         = this._(new qx.ui.form.TextField(), true);
             this._country      = this._(this.makeSelection(this.selectCountries()), false);
             this._dateOfBirth  = this._(new qx.ui.form.TextField(), false);
+            this._phone        = this._(new qx.ui.form.TextField(), false);
+            this._fax          = this._(new qx.ui.form.TextField(), false);
+            this._text1        = this._(new qx.ui.form.TextField(), false);
+            this._text2        = this._(new qx.ui.form.TextField(), false);
+            this._text3        = this._(new qx.ui.form.TextField(), false);
+            this._text4        = this._(new qx.ui.form.TextField(), false);
+            this._text5        = this._(new qx.ui.form.TextField(), false);
+            this._text6        = this._(new qx.ui.form.TextField(), false);
         },
 
         billingInformation: function() {
@@ -305,6 +344,24 @@ qx.Class.define("erp.customers.create.pages.Data", {
             this._billingGroup.add(this._city,         { row: 6, column: 1 });
             this._billingGroup.add(this._country,      { row: 7, column: 1 });
             this._billingGroup.add(this._dateOfBirth,  { row: 8, column: 1 });
+
+            this._billingGroup.add(this.makeLabel("Phone", false),         { row: 0, column: 2 }); 
+            this._billingGroup.add(this.makeLabel("Fax", false),           { row: 1, column: 2 }); 
+            this._billingGroup.add(this.makeLabel("Text 1", false),        { row: 2, column: 2 }); 
+            this._billingGroup.add(this.makeLabel("Text 2", false),        { row: 3, column: 2 }); 
+            this._billingGroup.add(this.makeLabel("Text 3", false),        { row: 4, column: 2 }); 
+            this._billingGroup.add(this.makeLabel("Text 4", false),        { row: 5, column: 2 }); 
+            this._billingGroup.add(this.makeLabel("Text 5", false),        { row: 6, column: 2 }); 
+            this._billingGroup.add(this.makeLabel("Text 6", false),        { row: 7, column: 2 }); 
+
+            this._billingGroup.add(this._phone,        { row: 0, column: 3 });
+            this._billingGroup.add(this._fax,          { row: 1, column: 3 });
+            this._billingGroup.add(this._text1,        { row: 2, column: 3 });
+            this._billingGroup.add(this._text2,        { row: 3, column: 3 });
+            this._billingGroup.add(this._text3,        { row: 4, column: 3 });
+            this._billingGroup.add(this._text4,        { row: 5, column: 3 }); 
+            this._billingGroup.add(this._text5,        { row: 6, column: 3 });
+            this._billingGroup.add(this._text6,        { row: 7, column: 3 });
         }
     }
 });
