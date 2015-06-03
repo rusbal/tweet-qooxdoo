@@ -24,6 +24,14 @@ qx.Mixin.define("mixins.shortcuts.MForm",
             return formObj;
         },
 
+        makeLabel : function(label, isRequired)
+        {
+            var lbl = label + (isRequired ? " <span style='color:red'>*</span> : " : " : ")
+            var lblObj = new qx.ui.basic.Label(lbl);
+            lblObj.setRich(true);
+            return lblObj;
+        },
+
         makeSelection : function(options, withPreOption, preOption)
         {
             var s = new qx.ui.form.SelectBox();
