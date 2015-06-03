@@ -16,7 +16,8 @@ qx.Class.define("erp.customers.create.pages.Data", {
 
         var scroller = new qx.ui.container.Scroll().set({
             height: this.availableTabWindowHeight(),
-            width: 750
+            width: 750,
+            minWidth: 750
         });
         this.add(scroller);
 
@@ -28,6 +29,7 @@ qx.Class.define("erp.customers.create.pages.Data", {
         this.comment();
         this.billingInformation();
         this.alternateShipping();
+        this.paymentInformation();
 
         this.validation();
     },
@@ -66,7 +68,24 @@ qx.Class.define("erp.customers.create.pages.Data", {
                 text3         : this._text3.getValue(),
                 text4         : this._text4.getValue(),
                 text5         : this._text5.getValue(),
-                text6         : this._text6.getValue()
+                text6         : this._text6.getValue(),
+
+                title2         : this._getSelectedValue(this._title2),
+                firstName2     : this._firstName2.getValue(),
+                lastName2      : this._lastName2.getValue(),
+                street2        : this._street2.getValue(),
+                streetNumber2  : this._streetNumber2.getValue(),
+                zipCode2       : this._zipCode2.getValue(),
+                city2          : this._city2.getValue(),
+                country2       : this._getSelectedValue(this._country2),
+                text12         : this._text12.getValue(),
+                text22         : this._text22.getValue(),
+                text32         : this._text32.getValue(),
+                text42         : this._text42.getValue(),
+                text52         : this._text52.getValue(),
+                text62         : this._text62.getValue(),
+
+                paymentMethod  : this._getSelectedValue(this._paymentMethod)
             };
         },
 
@@ -93,6 +112,8 @@ qx.Class.define("erp.customers.create.pages.Data", {
             manager.add(this._city);
             // SELECT: this._country;
 
+            // SELECT: this._paymentMethod;
+
             /**
              * Add a validator to the manager itself (passwords mut be equal)
              */
@@ -117,8 +138,13 @@ qx.Class.define("erp.customers.create.pages.Data", {
                     _this._country.setInvalidMessage(msgRequired);
                     _this._country.setValid(false);
                 }
+                if (!_this._getSelectedValue(_this._paymentMethod)) {
+                    valid = false;
+                    _this._paymentMethod.setInvalidMessage(msgRequired);
+                    _this._paymentMethod.setValid(false);
+                }
 
-                if (_this._password.getValue() == _this._confirmPassword.getValue()) {
+                if (_this._password.getValue() !== _this._confirmPassword.getValue()) {
                     valid = false;
                     var message = "Passwords must be equal.";
                     _this._password.setInvalidMessage(message);
@@ -509,6 +535,38 @@ qx.Class.define("erp.customers.create.pages.Data", {
             this._shippingGroup.add(this._text42,        { row: 5, column: 3 });
             this._shippingGroup.add(this._text52,        { row: 6, column: 3 });
             this._shippingGroup.add(this._text62,        { row: 7, column: 3 });
+        },
+
+        /**
+         * Payment information
+         */
+        _paymentGroup: null,
+
+        _paymentMethod : null,
+
+        paymentInformationLayout: function() {
+            var layout = new qx.ui.layout.Grid(9, 5);
+
+            layout.setColumnAlign(0, "right", "middle");
+            layout.setColumnFlex(1, 1); 
+            layout.setColumnWidth(0, 160);
+
+            this._paymentGroup = new qx.ui.groupbox.GroupBox("Payment information");
+            this._paymentGroup.setLayout(layout);
+            this.composite.add(this._paymentGroup);
+        },
+
+        paymentInformationInitFields: function() {
+            this._paymentMethod = this._(this.makeSelection(this.selectPaymentMethod()), true);
+        },
+
+        paymentInformation: function() {
+
+            this.paymentInformationLayout();
+            this.paymentInformationInitFields();
+
+            this._paymentGroup.add(this.makeLabel("Current payment method", true), { row: 0, column: 0 }); 
+            this._paymentGroup.add(this._paymentMethod, { row: 0, column: 1 }); 
         }
     }
 });
