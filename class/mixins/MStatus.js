@@ -29,26 +29,23 @@ qx.Mixin.define("mixins.MStatus",
 
         openWindow : function(winName, name)
         {
-            // if (win.getMode() === "minimized" || win.getMode() === "closed")
-            if (window.$_erp[winName] === undefined)
-            {
+            if (window.$_erp[winName] === undefined) {
+
                 /**
                  * Create window
                  */
-                var exec = "window.$_erp[\"" + winName + "\"] = new erp." + winName + ";";
-                var win = ( new Function( 'return ' + exec ) )();
+                (new Function( 
+                    "window.$_erp[\"" + winName + "\"] = new erp." + winName + ";"
+                ))();
 
-                console.log("> ADDING status bar")
                 this.statusAddToBar(winName, name);
-                window.$_desktop.add(win);
-
-                // TODO: Improve auto-positioning of windows
-                win.moveTo(100, 100);
-            } else
-            {
-                console.log(".NO status bar")
+                window.$_desktop.add(window.$_erp[winName]);
             }
+
             window.$_erp[winName].restore();
+
+            // TODO: Improve auto-positioning of windows
+            window.$_erp[winName].moveTo(100, 0);
         }
     }
 });
