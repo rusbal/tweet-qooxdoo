@@ -13,10 +13,8 @@ qx.Class.define("erp.customers.create.pages.Data", {
         this.base(arguments, "Data");
         this.setLayout(new qx.ui.layout.VBox(10));
 
-        this.initFields();
-
-        this.prepareLayout();
         this.basicInformation();
+
         this.validation();
     },
 
@@ -30,16 +28,7 @@ qx.Class.define("erp.customers.create.pages.Data", {
         _password        : null,
         _confirmPassword : null,
 
-        initFields: function() {
-            this._email           = this._(new qx.ui.form.TextField(), true);
-            this._customerGroup   = this._(this.makeSelection(this.selectCustomerGroup()), true);
-            this._shop            = this._(this.makeSelection(this.selectShop(), true, "0"), false);
-            this._active          = this._(new qx.ui.form.CheckBox("Mark the account as active"), false);
-            this._password        = this._(new qx.ui.form.PasswordField(), true);
-            this._confirmPassword = this._(new qx.ui.form.PasswordField(), true);
-        },
-
-        prepareLayout: function() {
+        basicInformationLayout: function() {
             var layout = new qx.ui.layout.Grid(9, 5);
 
             layout.setColumnAlign(0, "right", "middle");
@@ -62,7 +51,20 @@ qx.Class.define("erp.customers.create.pages.Data", {
             });
         },
 
+        basicInformationInitFields: function() {
+            this._email           = this._(new qx.ui.form.TextField(), true);
+            this._customerGroup   = this._(this.makeSelection(this.selectCustomerGroup()), true);
+            this._shop            = this._(this.makeSelection(this.selectShop(), true, "0"), false);
+            this._active          = this._(new qx.ui.form.CheckBox("Mark the account as active"), false);
+            this._password        = this._(new qx.ui.form.PasswordField(), true);
+            this._confirmPassword = this._(new qx.ui.form.PasswordField(), true);
+        },
+
         basicInformation: function() {
+
+            this.basicInformationLayout();
+            this.basicInformationInitFields();
+
             this.group.add(this.makeLabel("Email", true),            { row: 0, column: 0 }); 
             this.group.add(this.makeLabel("Customer group", true),   { row: 1, column: 0 }); 
             this.group.add(this.makeLabel("Shop", false),            { row: 2, column: 0 }); 

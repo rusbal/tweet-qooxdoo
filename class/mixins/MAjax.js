@@ -7,7 +7,7 @@ qx.Mixin.define("mixins.MAjax",
     {
         _getSelectedValue : function(select)
         {
-            var selection = select.getSelection()
+            var selection = select.getSelection(),
                 value = null;
 
             if (selection.length > 0) {
