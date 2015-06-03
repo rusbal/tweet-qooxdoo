@@ -9,18 +9,16 @@ qx.Class.define("erp.customers.create.Index",
     {
         this.base(arguments, "Create new customer", "icon/16/apps/internet-feed-reader.png");
         this.setLayout(new qx.ui.layout.VBox());
-
-        var tabView = new qx.ui.tabview.TabView;
-        this.add(tabView);
-
-        this.addTabs(tabView);
+        this.addTabs();
     },
 
     members :
     {
-        addTabs : function(tabView)
+        addTabs : function()
         { 
+            var tabView = new qx.ui.tabview.TabView;
             tabView.add(new erp.customers.create.pages.Data);
+            this.add(tabView);
         }
     }
 });
