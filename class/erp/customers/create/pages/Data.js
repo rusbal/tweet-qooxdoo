@@ -14,12 +14,17 @@ qx.Class.define("erp.customers.create.pages.Data", {
         this.setLayout(new qx.ui.layout.VBox(10));
 
         this.basicInformation();
+        this.comment();
 
         this.validation();
     },
 
     members: {
-        group: null,
+
+        /**
+         * Basic information
+         */
+        _basicGroup: null,
 
         _email           : null,
         _customerGroup   : null,
@@ -44,11 +49,9 @@ qx.Class.define("erp.customers.create.pages.Data", {
             layout.setColumnWidth(2, 140);
             layout.setColumnWidth(3, 200);
 
-            this.group = new qx.ui.groupbox.GroupBox("Basic information");
-            this.group.setLayout(layout);
-            this.add(this.group, {
-                flex: 2
-            });
+            this._basicGroup = new qx.ui.groupbox.GroupBox("Basic information");
+            this._basicGroup.setLayout(layout);
+            this.add(this._basicGroup);
         },
 
         basicInformationInitFields: function() {
@@ -65,21 +68,56 @@ qx.Class.define("erp.customers.create.pages.Data", {
             this.basicInformationLayout();
             this.basicInformationInitFields();
 
-            this.group.add(this.makeLabel("Email", true),            { row: 0, column: 0 }); 
-            this.group.add(this.makeLabel("Customer group", true),   { row: 1, column: 0 }); 
-            this.group.add(this.makeLabel("Shop", false),            { row: 2, column: 0 }); 
-            this.group.add(this.makeLabel("Active", false),          { row: 0, column: 2 }); 
-            this.group.add(this.makeLabel("Password", true),         { row: 1, column: 2 }); 
-            this.group.add(this.makeLabel("Confirm password", true), { row: 2, column: 2 }); 
+            this._basicGroup.add(this.makeLabel("Email", true),            { row: 0, column: 0 }); 
+            this._basicGroup.add(this.makeLabel("Customer group", true),   { row: 1, column: 0 }); 
+            this._basicGroup.add(this.makeLabel("Shop", false),            { row: 2, column: 0 }); 
+            this._basicGroup.add(this.makeLabel("Active", false),          { row: 0, column: 2 }); 
+            this._basicGroup.add(this.makeLabel("Password", true),         { row: 1, column: 2 }); 
+            this._basicGroup.add(this.makeLabel("Confirm password", true), { row: 2, column: 2 }); 
 
-            this.group.add(this._email,           { row: 0, column: 1 }); 
-            this.group.add(this._customerGroup,   { row: 1, column: 1 }); 
-            this.group.add(this._shop,            { row: 2, column: 1 });
-            this.group.add(this._active,          { row: 0, column: 3 });
-            this.group.add(this._password,        { row: 1, column: 3 }); 
-            this.group.add(this._confirmPassword, { row: 2, column: 3 });
+            this._basicGroup.add(this._email,           { row: 0, column: 1 }); 
+            this._basicGroup.add(this._customerGroup,   { row: 1, column: 1 }); 
+            this._basicGroup.add(this._shop,            { row: 2, column: 1 });
+            this._basicGroup.add(this._active,          { row: 0, column: 3 });
+            this._basicGroup.add(this._password,        { row: 1, column: 3 }); 
+            this._basicGroup.add(this._confirmPassword, { row: 2, column: 3 });
         },
 
+        /**
+         * Comment
+         */
+        _commentGroup: null,
+
+        _comment : null,
+
+        commentLayout: function() {
+            var layout = new qx.ui.layout.Grid(9, 5);
+            layout.setColumnFlex(0, 1);
+            
+            this._commentGroup = new qx.ui.groupbox.GroupBox("Comment");
+            this._commentGroup.setLayout(layout);
+            this.add(this._commentGroup);
+        },
+
+        commentInitFields: function() {
+            this._comment = this._(new qx.ui.form.TextArea(), false);
+        },
+
+        comment: function() {
+
+            this.commentLayout();
+            this.commentInitFields();
+
+            this._commentGroup.add(this._comment, { row: 0, column: 0 }); 
+
+            var helpLabel = new qx.ui.basic.Label("<i>For internal use only</i>");
+            helpLabel.setRich(true);
+            this._commentGroup.add(helpLabel, { row: 1, column: 0 }); 
+        },
+
+        /**
+         * Validation
+         */
         validation: function() {
 
             var manager = new qx.ui.form.validation.Manager();

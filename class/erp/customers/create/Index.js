@@ -19,12 +19,11 @@ qx.Class.define("erp.customers.create.Index",
         this.setLayout(new qx.ui.layout.VBox());
 
         this.container = new qx.ui.tabview.TabView;
-        this.add(this.container, {
-            flex : 1
-        });
+        this.add(this.container);
 
         this.tabs();
     },
+
     members :
     {
         container : null,

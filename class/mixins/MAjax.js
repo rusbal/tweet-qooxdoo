@@ -16,6 +16,23 @@ qx.Mixin.define("mixins.MAjax",
             return value;
         },
 
+        getFormEntriesJson : function(erpModule)
+        {
+            var json = {};
+            switch (erpModule) {
+                case "customers.create":
+                    json = { 
+                        email : this._email.getValue(),
+                        customerGroup : this._getSelectedValue(this._customerGroup),
+                        shop : this._getSelectedValue(this._shop),
+                        active : this._active.getValue(),
+                        password : this._password.getValue(),
+                        comment : this._comment.getValue()
+                    };
+            }
+            return json;
+        },
+
         submitData : function(erpModule)
         {
             var url = "/";
@@ -24,13 +41,7 @@ qx.Mixin.define("mixins.MAjax",
             switch (erpModule) {
                 case "customers.create":
                     url = "/phalcon/create_new_customer.php";
-                    json = { 
-                        email : this._email.getValue(),
-                        customerGroup : this._getSelectedValue(this._customerGroup),
-                        shop : this._getSelectedValue(this._shop),
-                        active : this._active.getValue(),
-                        password : this._password.getValue()
-                    };
+                    json = this.getFormEntriesJson(erpModule);
                     break;
             }
 
