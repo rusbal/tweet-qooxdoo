@@ -32,6 +32,7 @@ qx.Class.define("erp.customers.create.pages.Data", {
         this.paymentInformation();
 
         this.validation();
+        this.submitButtons();
     },
 
     members: {
@@ -92,34 +93,34 @@ qx.Class.define("erp.customers.create.pages.Data", {
         /**
          * Validation
          */
+        manager : new qx.ui.form.validation.Manager(),
+
         validation: function() {
 
-            var manager = new qx.ui.form.validation.Manager();
-
-            manager.add(this._email, qx.util.Validate.email());
+            this.manager.add(this._email, qx.util.Validate.email());
             // SELECT: this._customerGroup;
-            manager.add(this._shop);
-            manager.add(this._active);
-            manager.add(this._password, this.passwordLengthValidator);
-            manager.add(this._confirmPassword, this.passwordLengthValidator);
+            this.manager.add(this._shop);
+            this.manager.add(this._active);
+            this.manager.add(this._password, this.passwordLengthValidator);
+            this.manager.add(this._confirmPassword, this.passwordLengthValidator);
 
             // SELECT: this._title;
-            manager.add(this._firstName);
-            manager.add(this._lastName);
-            manager.add(this._street);
-            manager.add(this._streetNumber);
-            manager.add(this._zipCode);
-            manager.add(this._city);
+            this.manager.add(this._firstName);
+            this.manager.add(this._lastName);
+            this.manager.add(this._street);
+            this.manager.add(this._streetNumber);
+            this.manager.add(this._zipCode);
+            this.manager.add(this._city);
             // SELECT: this._country;
 
             // SELECT: this._paymentMethod;
 
             /**
-             * Add a validator to the manager itself (passwords mut be equal)
+             * Add a validator to the this.manager itself (passwords mut be equal)
              */
             var _this = this;
 
-            manager.setValidator(function(items) {
+            this.manager.setValidator(function(items) {
                 var valid = true;
 
                 var msgRequired = "This field is required";
@@ -155,6 +156,19 @@ qx.Class.define("erp.customers.create.pages.Data", {
                 return valid;
             });
 
+            // add a listener to the form manager for the validation complete
+            this.manager.addListener("complete", function() {
+                if (this.manager.getValid()) {
+                    console.log("Submitting data...");
+                    this.submitData("customers.create");
+                } else {
+                    console.log(this.manager.getInvalidMessages().join("\n"));
+                }
+            }, this);
+        },
+
+        submitButtons : function() {
+
             /**
              * Create button row
              */
@@ -168,23 +182,20 @@ qx.Class.define("erp.customers.create.pages.Data", {
 
             this.add(btnRow);
 
+            var cancelBtn = new qx.ui.form.Button("Cancel");
+            cancelBtn.setWidth(100);
+            cancelBtn.addListener("execute", function() {
+                this.getLayoutParent().getLayoutParent().getLayoutParent().getLayoutParent().close();
+            }, this);
+            btnRow.add(cancelBtn);
+
             var saveBtn = new qx.ui.form.Button("Save");
             saveBtn.setWidth(100);
-            btnRow.add(saveBtn);
             saveBtn.addListener("execute", function() {
                 // return type can not be used because of async validation
-                manager.validate()
+                this.manager.validate()
             }, this);
-
-            // add a listener to the form manager for the validation complete
-            manager.addListener("complete", function() {
-                if (manager.getValid()) {
-                    console.log("Submitting data...");
-                    this.submitData("customers.create");
-                } else {
-                    console.log(manager.getInvalidMessages().join("\n"));
-                }
-            }, this);
+            btnRow.add(saveBtn);
         },
 
         /**
