@@ -22,6 +22,21 @@ qx.Class.define("erp.customers.create.pages.Data", {
     members: {
 
         /**
+         * Called from MAjax.js
+         */
+        customerCreateJson : function()
+        {
+            return { 
+                email         : this._email.getValue(),
+                customerGroup : this._getSelectedValue(this._customerGroup),
+                shop          : this._getSelectedValue(this._shop),
+                active        : this._active.getValue(),
+                password      : this._password.getValue(),
+                comment       : this._comment.getValue()
+            };
+        },
+
+        /**
          * Basic information
          */
         _basicGroup: null,
