@@ -33,8 +33,110 @@ qx.Class.define("erp.customers.create.pages.Data", {
                 shop          : this._getSelectedValue(this._shop),
                 active        : this._active.getValue(),
                 password      : this._password.getValue(),
-                comment       : this._comment.getValue()
+
+                comment       : this._comment.getValue(),
+
+                title         : this._getSelectedValue(this._title),
+                firstName     : this._firstName.getValue(),
+                lastName      : this._lastName.getValue(),
+                street        : this._street.getValue(),
+                streetNumber  : this._streetNumber.getValue(),
+                zipCode       : this._zipCode.getValue(),
+                city          : this._city.getValue(),
+                country       : this._getSelectedValue(this._country),
+                dateOfBirth   : this._dateOfBirth.getValue()
             };
+        },
+
+        /**
+         * Validation
+         */
+        validation: function() {
+
+            var manager = new qx.ui.form.validation.Manager();
+
+            manager.add(this._email, qx.util.Validate.email());
+            // SELECT: this._customerGroup;
+            manager.add(this._shop);
+            manager.add(this._active);
+            manager.add(this._password, this.passwordLengthValidator);
+            manager.add(this._confirmPassword, this.passwordLengthValidator);
+
+            // SELECT: this._title;
+            manager.add(this._firstName);
+            manager.add(this._lastName);
+            manager.add(this._street);
+            manager.add(this._streetNumber);
+            manager.add(this._zipCode);
+            manager.add(this._city);
+            // SELECT: this._country;
+
+            /**
+             * Add a validator to the manager itself (passwords mut be equal)
+             */
+            var _this = this;
+
+            manager.setValidator(function(items) {
+                var valid = true;
+
+                var msgRequired = "This field is required";
+                if (!_this._getSelectedValue(_this._customerGroup)) {
+                    valid = false;
+                    _this._customerGroup.setInvalidMessage(msgRequired);
+                    _this._customerGroup.setValid(false);
+                }
+                if (!_this._getSelectedValue(_this._title)) {
+                    valid = false;
+                    _this._title.setInvalidMessage(msgRequired);
+                    _this._title.setValid(false);
+                }
+                if (!_this._getSelectedValue(_this._country)) {
+                    valid = false;
+                    _this._country.setInvalidMessage(msgRequired);
+                    _this._country.setValid(false);
+                }
+
+                if (_this._password.getValue() == _this._confirmPassword.getValue()) {
+                    valid = false;
+                    var message = "Passwords must be equal.";
+                    _this._password.setInvalidMessage(message);
+                    _this._confirmPassword.setInvalidMessage(message);
+                    _this._password.setValid(false);
+                    _this._confirmPassword.setValid(false);
+                }
+                return valid;
+            });
+
+            /**
+             * Create button row
+             */
+            var btnRow = new qx.ui.container.Composite();
+            btnRow.setMarginTop(5);
+
+            var hbox = new qx.ui.layout.HBox();
+            hbox.setAlignX("right");
+            hbox.setSpacing(5);
+            btnRow.setLayout(hbox);
+
+            this.add(btnRow);
+
+            var saveBtn = new qx.ui.form.Button("Save");
+            saveBtn.setWidth(100);
+            btnRow.add(saveBtn);
+            saveBtn.addListener("execute", function() {
+                // return type can not be used because of async validation
+                manager.validate()
+            }, this);
+
+            // add a listener to the form manager for the validation complete
+            manager.addListener("complete", function() {
+                if (manager.getValid()) {
+                    console.log("Submitting data...");
+                    this.submitData("customers.create");
+                } else {
+                    console.log(manager.getInvalidMessages().join("\n"));
+                }
+            }, this);
         },
 
         /**
@@ -129,68 +231,6 @@ qx.Class.define("erp.customers.create.pages.Data", {
             var helpLabel = new qx.ui.basic.Label("<i>For internal use only</i>");
             helpLabel.setRich(true);
             this._commentGroup.add(helpLabel, { row: 1, column: 0 }); 
-        },
-
-        /**
-         * Validation
-         */
-        validation: function() {
-
-            var manager = new qx.ui.form.validation.Manager();
-
-            manager.add(this._email, qx.util.Validate.email());
-            manager.add(this._customerGroup);
-            manager.add(this._shop);
-            manager.add(this._active);
-            manager.add(this._password, this.passwordLengthValidator);
-            manager.add(this._confirmPassword, this.passwordLengthValidator);
-
-            // add a validator to the manager itself (passwords mut be equal)
-            var password = this._password;
-            var confirmPassword = this._confirmPassword;
-
-            manager.setValidator(function(items) {
-                var valid = password.getValue() == confirmPassword.getValue();
-                if (!valid) {
-                    var message = "Passwords must be equal.";
-                    password.setInvalidMessage(message);
-                    confirmPassword.setInvalidMessage(message);
-                    password.setValid(false);
-                    confirmPassword.setValid(false);
-                }
-                return valid;
-            });
-
-            /**
-             * Create button row
-             */
-            var btnRow = new qx.ui.container.Composite();
-            btnRow.setMarginTop(5);
-
-            var hbox = new qx.ui.layout.HBox();
-            hbox.setAlignX("right");
-            hbox.setSpacing(5);
-            btnRow.setLayout(hbox);
-
-            this.add(btnRow);
-
-            var saveBtn = new qx.ui.form.Button("Save");
-            saveBtn.setWidth(100);
-            btnRow.add(saveBtn);
-            saveBtn.addListener("execute", function() {
-                // return type can not be used because of async validation
-                manager.validate()
-            }, this);
-
-            // add a listener to the form manager for the validation complete
-            manager.addListener("complete", function() {
-                if (manager.getValid()) {
-                    console.log("Submitting data...");
-                    this.submitData("customers.create");
-                } else {
-                    console.log(manager.getInvalidMessages().join("\n"));
-                }
-            }, this);
         },
 
         /**
