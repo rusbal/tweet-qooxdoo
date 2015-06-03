@@ -182,14 +182,14 @@ qx.Class.define("erp.customers.create.pages.Data", {
 
             this.add(btnRow);
 
-            var cancelBtn = new qx.ui.form.Button("Cancel");
+            var cancelBtn = new qx.ui.form.Button("Cancel", "icon/16/actions/dialog-cancel.png");
             cancelBtn.setWidth(100);
             cancelBtn.addListener("execute", function() {
                 this.getLayoutParent().getLayoutParent().getLayoutParent().getLayoutParent().close();
             }, this);
             btnRow.add(cancelBtn);
 
-            var saveBtn = new qx.ui.form.Button("Save");
+            var saveBtn = new qx.ui.form.Button("Save", "icon/16/actions/document-save.png");
             saveBtn.setWidth(100);
             saveBtn.addListener("execute", function() {
                 // return type can not be used because of async validation
