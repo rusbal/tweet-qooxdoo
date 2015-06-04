@@ -65,18 +65,27 @@ qx.Class.define("widgets.Ckeditor", {
         linkTo: function(saveButton) {
             saveButton.addListener("execute", function() {
 
-                // var old = this.getValue();
                 var old = this.__ckEditor._.data;
-
                 this.__ckEditor.updateElement();
-
-                // var val = this.getValue();
                 var val = this.__ckEditor._.data;
 
                 if (old != val) {
-                    this.fireDataEvent("changeValue", val, old);
-                    this.setValue(val);
-                    console.log("Ckeditor data: ", this.getValue());
+                    /**
+                     * Remove <div id="xunlei_com_thun...458d045bd">&nbsp;</div> at 2nd to the last line
+                     */
+                    var parts = val.split("\n");
+                    var newVal = "";
+
+                    for (var x = 0; x < parts.length; x += 1) {
+                        if (parts[x]) {
+                            if ((x + 1) != (parts.length - 1)) {
+                                newVal += parts[x] + "\n";
+                            }
+                        }
+                    }
+
+                    this.fireDataEvent("changeValue", newVal, old);
+                    this.setValue(newVal);
                 }
             }, this);
         }
