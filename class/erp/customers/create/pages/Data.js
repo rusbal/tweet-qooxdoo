@@ -32,7 +32,7 @@ qx.Class.define("erp.customers.create.pages.Data", {
         this.paymentInformation();
 
         this.validation();
-        this.submitButtons();
+        // this.submitButtons();
     },
 
     members: {
@@ -165,37 +165,6 @@ qx.Class.define("erp.customers.create.pages.Data", {
                     console.log(this.manager.getInvalidMessages().join("\n"));
                 }
             }, this);
-        },
-
-        submitButtons : function() {
-
-            /**
-             * Create button row
-             */
-            var btnRow = new qx.ui.container.Composite();
-            btnRow.setMarginTop(5);
-
-            var hbox = new qx.ui.layout.HBox();
-            hbox.setAlignX("right");
-            hbox.setSpacing(5);
-            btnRow.setLayout(hbox);
-
-            this.add(btnRow);
-
-            var cancelBtn = new qx.ui.form.Button("Cancel", "icon/16/actions/dialog-cancel.png");
-            cancelBtn.setWidth(100);
-            cancelBtn.addListener("execute", function() {
-                this.getLayoutParent().getLayoutParent().getLayoutParent().getLayoutParent().close();
-            }, this);
-            btnRow.add(cancelBtn);
-
-            var saveBtn = new qx.ui.form.Button("Save", "icon/16/actions/document-save.png");
-            saveBtn.setWidth(100);
-            saveBtn.addListener("execute", function() {
-                // return type can not be used because of async validation
-                this.manager.validate()
-            }, this);
-            btnRow.add(saveBtn);
         },
 
         /**
