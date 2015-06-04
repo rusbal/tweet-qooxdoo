@@ -10,7 +10,7 @@ qx.Class.define("erp.items.create.Index",
 
     construct : function()
     {
-        this.base(arguments, "Items : Create : Index", "icon/16/apps/internet-feed-reader.png");
+        this.base(arguments, "Item details: new item", "icon/16/apps/internet-feed-reader.png");
         this.setLayout(new qx.ui.layout.VBox());
         this.addTabs();
         this.submitButtons();

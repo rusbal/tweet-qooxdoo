@@ -5,8 +5,8 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
     include: [
         mixins.MAjax,
         mixins.MSettings,
-        mixins.shortcuts.MForm
-        // mixins.data.MItem,
+        mixins.shortcuts.MForm,
+        mixins.data.MItem
     ],
 
     construct: function(manager) {
@@ -25,8 +25,6 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
         scroller.add(this.composite);
 
         this.basicInformation();
-
-        // this.validation();
     },
 
     members: {
@@ -38,12 +36,15 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
          */
         _basicGroup: null,
 
-        _email           : null,
-        _itemGroup   : null,
-        _shop            : null,
-        _active          : null,
-        _password        : null,
-        _confirmPassword : null,
+        _manufacturer     : null,
+        _itemName         : null,
+        _itemNumber       : null,
+        _active           : null,
+        _variants         : null,
+        _vat              : null,
+        _template         : null,
+        _activePriceGroup : null,
+        _selectPriceGroup : null,
 
         basicInformationLayout: function() {
             var layout = new qx.ui.layout.Grid(9, 5);
@@ -67,12 +68,16 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
         },
 
         basicInformationInitFields: function() {
-            this._email           = this._(new qx.ui.form.TextField(), true);
-            // this._itemGroup   = this._(this.makeSelection(this.selectItemGroup()), true);
-            // this._shop            = this._(this.makeSelection(this.selectShop(), true, "0"), false);
-            this._active          = this._(new qx.ui.form.CheckBox("Mark the account as active"), false);
-            this._password        = this._(new qx.ui.form.PasswordField(), true);
-            this._confirmPassword = this._(new qx.ui.form.PasswordField(), true);
+            this._manufacturer     = this._(this.makeSelection(this.selectManufacturer()), true);
+            this._itemName         = this._(new qx.ui.form.TextField(), true);
+            this._itemNumber       = this._(new qx.ui.form.TextField(), true);
+            this._active           = this._(new qx.ui.form.CheckBox(), false);
+            this._variants         = this._(new qx.ui.form.CheckBox(), false);
+
+            this._vat              = this._(this.makeSelection(this.selectVat(), false), true);
+            this._template         = this._(this.makeSelection(this.selectTemplate(), false), true);
+            this._activePriceGroup = this._(new qx.ui.form.CheckBox(), false); 
+            this._selectPriceGroup = this._(this.makeSelection(this.selectPriceGroup()), true);
         },
 
         basicInformation: function() {
@@ -80,21 +85,27 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
             this.basicInformationLayout();
             this.basicInformationInitFields();
 
-            this._basicGroup.add(this.makeLabel("Email", true),            { row: 0, column: 0 }); 
-            this._basicGroup.add(this.makeLabel("Item group", true),   { row: 1, column: 0 }); 
-            this._basicGroup.add(this.makeLabel("Shop", false),            { row: 2, column: 0 }); 
+            this._basicGroup.add(this.makeLabel("Manufacturer", true), { row: 0, column: 0 }); 
+            this._basicGroup.add(this.makeLabel("Item name", true),    { row: 1, column: 0 }); 
+            this._basicGroup.add(this.makeLabel("Item number", true),  { row: 2, column: 0 }); 
+            this._basicGroup.add(this.makeLabel("Active", false),      { row: 3, column: 0 }); 
+            this._basicGroup.add(this.makeLabel("Variants", false),    { row: 4, column: 0 }); 
 
-            this._basicGroup.add(this._email,           { row: 0, column: 1 }); 
-            // this._basicGroup.add(this._itemGroup,   { row: 1, column: 1 }); 
-            // this._basicGroup.add(this._shop,            { row: 2, column: 1 });
+            this._basicGroup.add(this._manufacturer,   { row: 0, column: 1 }); 
+            this._basicGroup.add(this._itemName,       { row: 1, column: 1 }); 
+            this._basicGroup.add(this._itemNumber,     { row: 2, column: 1 }); 
+            this._basicGroup.add(this._active,         { row: 3, column: 1 });
+            this._basicGroup.add(this._variants,       { row: 4, column: 1 });
 
-            this._basicGroup.add(this.makeLabel("Active", false),          { row: 0, column: 2 }); 
-            this._basicGroup.add(this.makeLabel("Password", true),         { row: 1, column: 2 }); 
-            this._basicGroup.add(this.makeLabel("Confirm password", true), { row: 2, column: 2 }); 
+            this._basicGroup.add(this.makeLabel("VAT", true),                 { row: 0, column: 2 }); 
+            this._basicGroup.add(this.makeLabel("Template", true),            { row: 1, column: 2 }); 
+            this._basicGroup.add(this.makeLabel("Active price group", false), { row: 2, column: 2 }); 
+            this._basicGroup.add(this.makeLabel("Select price group", true),  { row: 3, column: 2 }); 
 
-            this._basicGroup.add(this._active,          { row: 0, column: 3 });
-            this._basicGroup.add(this._password,        { row: 1, column: 3 }); 
-            this._basicGroup.add(this._confirmPassword, { row: 2, column: 3 });
+            this._basicGroup.add(this._vat,              { row: 0, column: 3 });
+            this._basicGroup.add(this._template,         { row: 1, column: 3 });
+            this._basicGroup.add(this._activePriceGroup, { row: 2, column: 3 });
+            this._basicGroup.add(this._selectPriceGroup, { row: 3, column: 3 });
         }
     }
 });

@@ -6,7 +6,8 @@ qx.Mixin.define("mixins.MUrls",
     members :
     {
         urlMap : {
-            "customers.create" : "/phalcon/create_new_customer.php"
+            "customers.create" : "/phalcon/create_new_customer.php",
+            "items.create"     : "/phalcon/create_new_customer.php"
         },
         
         getUrl : function(module)

@@ -12,24 +12,33 @@ qx.Mixin.define("erp.items.create.mixins.MBasicInfoValidator",
 
         setValidation: function(context) {
 
-            // this.vManager.add(context._email, qx.util.Validate.email());
-            // // SELECT: context._customerGroup;
-            // this.vManager.add(context._shop);
-
-            /**
-             * Add a validator to the this.vManager itself (passwords mut be equal)
-             */
-            // var _this = this;
+            this.vManager.add(context._itemName);
+            this.vManager.add(context._itemNumber);
 
             this.vManager.setValidator(function(items) {
                 var valid = true;
 
                 var msgRequired = "This field is required";
-                // if (!context._getSelectedValue(context._customerGroup)) {
-                //     valid = false;
-                //     context._customerGroup.setInvalidMessage(msgRequired);
-                //     context._customerGroup.setValid(false);
-                // }
+                if (!context._getSelectedValue(context._manufacturer)) {
+                    valid = false;
+                    context._manufacturer.setInvalidMessage(msgRequired);
+                    context._manufacturer.setValid(false);
+                }
+                if (!context._getSelectedValue(context._vat)) {
+                    valid = false;
+                    context._vat.setInvalidMessage(msgRequired);
+                    context._vat.setValid(false);
+                }
+                if (!context._getSelectedValue(context._template)) {
+                    valid = false;
+                    context._template.setInvalidMessage(msgRequired);
+                    context._template.setValid(false);
+                }
+                if (!context._getSelectedValue(context._selectPriceGroup)) {
+                    valid = false;
+                    context._selectPriceGroup.setInvalidMessage(msgRequired);
+                    context._selectPriceGroup.setValid(false);
+                }
                 return valid;
             });
 
