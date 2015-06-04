@@ -38,6 +38,13 @@ qx.Mixin.define("mixins.data.MItem",
                 "Paket(e)",
                 "Stuck"
             ];
+        },
+        selectCustomerGroups : function()
+        {
+            return [
+                "Default",
+                "Handler"
+            ];
         }
     }
 });

@@ -17,6 +17,8 @@ qx.Mixin.define("erp.items.create.pages.boxes.MItemSettings",
         _minOrder            : null,
         _graduation          : null,
         _maxOrder            : null,
+        _avoidCustGroups     : null,
+        _manufacturerNum     : null,
 
         settingsLayout: function() {
             var layout = new qx.ui.layout.Grid(9, 5);
@@ -55,6 +57,10 @@ qx.Mixin.define("erp.items.create.pages.boxes.MItemSettings",
             this._minOrder            = this._(new qx.ui.form.Spinner(), false); 
             this._graduation          = this._(new qx.ui.form.Spinner(), false);
             this._maxOrder            = this._(new qx.ui.form.Spinner(), false);
+            this._avoidCustGroups     = this._(this.makeSelection(this.selectCustomerGroups()), false);
+
+
+            this._manufacturerNum     = this._(new qx.ui.form.TextField(), false);
         },
 
         settings: function() {
@@ -72,6 +78,7 @@ qx.Mixin.define("erp.items.create.pages.boxes.MItemSettings",
             this._settGroup.add(this.makeLabel("Minimum order", false),             { row: 7, column: 0 }); 
             this._settGroup.add(this.makeLabel("Graduation", false),                { row: 8, column: 0 }); 
             this._settGroup.add(this.makeLabel("Maximum order", false),             { row: 9, column: 0 }); 
+            this._settGroup.add(this.makeLabel("Avoid customer groups", false),     { row: 10, column: 0 }); 
 
             this._settGroup.add(this._emailNotification,   { row: 0, column: 1 });
             this._settGroup.add(this._deliveryTimeInDays,  { row: 1, column: 1 }); 
@@ -83,6 +90,15 @@ qx.Mixin.define("erp.items.create.pages.boxes.MItemSettings",
             this._settGroup.add(this._minOrder,            { row: 7, column: 1 });
             this._settGroup.add(this._graduation,          { row: 8, column: 1 });
             this._settGroup.add(this._maxOrder,            { row: 9, column: 1 });
+            this._settGroup.add(this._avoidCustGroups,     { row: 10, column: 1, colSpan: 3 });
+
+            var helpTxt = "<i style='color:gray'>Here you have the option of deactivating the item for different customer groups.</i>";
+            this._settGroup.add(new qx.ui.basic.Label(helpTxt).set({rich : true}), { row: 11, column: 1, colSpan: 3 });
+
+            this._settGroup.add(this.makeLabel("Manufacturer number", false),  { row: 0, column: 2 }); 
+            this._settGroup.add(this._manufacturerNum,                         { row: 0, column: 3 });
+
+
         }
     }
 });

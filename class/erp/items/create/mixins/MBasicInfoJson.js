@@ -39,6 +39,9 @@ qx.Mixin.define("erp.items.create.mixins.MBasicInfoJson",
                 minOrder            : context._minOrder.getValue(),
                 graduation          : context._graduation.getValue(),
                 maxOrder            : context._maxOrder.getValue(),
+                avoidCustGroups     : context._getSelectedValue(context._avoidCustGroups),
+
+                manufacturerNum     : context._manufacturerNum.getValue(),
 
                 freiText1        : context._freiText1.getValue(),
                 freiText2        : context._freiText2.getValue(),
