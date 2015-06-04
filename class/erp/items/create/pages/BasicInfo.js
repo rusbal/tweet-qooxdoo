@@ -9,7 +9,9 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
         mixins.data.MItem,
 
         erp.items.create.pages.boxes.MBasicInfo,
-        erp.items.create.pages.boxes.MDescription
+        erp.items.create.pages.boxes.MDescription,
+        erp.items.create.pages.boxes.MMetaInfo,
+        erp.items.create.pages.boxes.MAddlFields
     ],
 
     construct: function(saveBtn) {
@@ -31,6 +33,8 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
 
         this.basicInformation();
         this.description();
+        this.metaInfo();
+        this.addlFields();
     },
 
     members: {

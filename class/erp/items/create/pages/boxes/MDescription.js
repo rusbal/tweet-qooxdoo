@@ -20,10 +20,9 @@ qx.Mixin.define("erp.items.create.pages.boxes.MDescription",
         },
 
         descriptionInitFields : function() {
+
             var ckEdit = new widgets.Ckeditor(null, 140);
             ckEdit.linkTo(this.saveBtn);
-
-            // this._description = this._(new qx.ui.form.TextArea(), false);
             this._description = this._(ckEdit, false);
         },
 

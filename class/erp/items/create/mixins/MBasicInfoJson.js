@@ -18,7 +18,15 @@ qx.Mixin.define("erp.items.create.mixins.MBasicInfoJson",
                 activePriceGroup : context._activePriceGroup.getValue(),
                 selectPriceGroup : context._getSelectedValue(context._selectPriceGroup),
 
-                description      : context._description.getValue()
+                description      : context._description.getValue(),
+
+                title            : context._title.getValue(),
+                shortDescription : context._shortDescription.getValue(),
+                keywords         : context._keywords.getValue(),
+
+                freiText1        : context._freiText1.getValue(),
+                freiText2        : context._freiText2.getValue(),
+                kommentar        : context._kommentar.getValue()
             };
         }
     }
