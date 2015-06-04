@@ -8,47 +8,40 @@ qx.Mixin.define("erp.items.create.mixins.MBasicInfoValidator",
         /**
          * Validation
          */
-        manager : new qx.ui.form.validation.Manager(),
+        vManager : new qx.ui.form.validation.Manager(),
 
-        validation: function() {
+        setValidation: function(context) {
 
-            this.manager.add(this._email, qx.util.Validate.email());
-            // SELECT: this._customerGroup;
-            this.manager.add(this._shop);
-            this.manager.add(this._password, this.passwordLengthValidator);
+            // this.vManager.add(context._email, qx.util.Validate.email());
+            // // SELECT: context._customerGroup;
+            // this.vManager.add(context._shop);
 
-            var _this = this;
+            /**
+             * Add a validator to the this.vManager itself (passwords mut be equal)
+             */
+            // var _this = this;
 
-            this.manager.setValidator(function(items) {
+            this.vManager.setValidator(function(items) {
                 var valid = true;
 
                 var msgRequired = "This field is required";
-                // if (!_this._getSelectedValue(_this._customerGroup)) {
+                // if (!context._getSelectedValue(context._customerGroup)) {
                 //     valid = false;
-                //     _this._customerGroup.setInvalidMessage(msgRequired);
-                //     _this._customerGroup.setValid(false);
+                //     context._customerGroup.setInvalidMessage(msgRequired);
+                //     context._customerGroup.setValid(false);
                 // }
                 return valid;
             });
 
             // add a listener to the form manager for the validation complete
-            this.manager.addListener("complete", function() {
-                if (this.manager.getValid()) {
+            this.vManager.addListener("complete", function() {
+                if (this.vManager.getValid()) {
                     console.log("Submitting data...");
-                    this.submitData("items.create");
+                    this.submitData("items.create", context);
                 } else {
-                    console.log(this.manager.getInvalidMessages().join("\n"));
+                    console.log(this.vManager.getInvalidMessages().join("\n"));
                 }
             }, this);
-        },
-
-        passwordLengthValidator : function(value, item)
-        {
-            var valid = value != null && value.length > 2;
-            if (!valid) {
-                item.setInvalidMessage("Please enter a password at with least 3 characters.");
-            }
-            return valid;
         }
     }
 });

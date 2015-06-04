@@ -5,11 +5,11 @@ qx.Mixin.define("erp.items.create.mixins.MBasicInfoJson",
         /**
          * Called from MAjax.js
          */
-        customerCreateJson : function()
+        basicInfoJsonData : function(context)
         {
             return { 
-                // email         : this._email.getValue(),
-                // customerGroup : this._getSelectedValue(this._customerGroup),
+                // email         : context._email.getValue(),
+                // customerGroup : context._getSelectedValue(context._customerGroup),
             };
         }
     }

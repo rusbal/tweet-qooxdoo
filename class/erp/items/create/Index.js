@@ -3,6 +3,7 @@ qx.Class.define("erp.items.create.Index",
     extend : qx.ui.window.Window,
 
     include : [
+        mixins.MAjax,
         erp.items.create.mixins.MJson,
         erp.items.create.mixins.MBasicInfoValidator
     ],
@@ -11,24 +12,20 @@ qx.Class.define("erp.items.create.Index",
     {
         this.base(arguments, "Items : Create : Index", "icon/16/apps/internet-feed-reader.png");
         this.setLayout(new qx.ui.layout.VBox());
-        // this.setWidth(750);
-        // this.setHeight(300);
         this.addTabs();
         this.submitButtons();
+        this.setValidation(this.basicInfoTab);
     },
 
     members :
     {
-        /**
-         * Validation
-         */
-        validMgr : new qx.ui.form.validation.Manager(),
+        basicInfoTab : new erp.items.create.pages.BasicInfo(),
 
         addTabs : function()
         {
             var tabView = new qx.ui.tabview.TabView;
 
-            tabView.add(new erp.items.create.pages.BasicInfo(this.validMgr));
+            tabView.add(this.basicInfoTab);
 
             var tab2 = new qx.ui.tabview.Page("Categories");
             tabView.add(tab2);
@@ -75,7 +72,7 @@ qx.Class.define("erp.items.create.Index",
             saveBtn.setWidth(100);
             saveBtn.addListener("execute", function() {
                 // return type can not be used because of async validation
-                this.validMgr.validate()
+                this.vManager.validate()
             }, this);
             btnRow.add(saveBtn);
 

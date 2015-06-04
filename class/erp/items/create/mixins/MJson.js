@@ -9,12 +9,26 @@ qx.Mixin.define("erp.items.create.mixins.MJson",
         /**
          * Called from MAjax.js
          */
-        itemCreateJson : function()
+        prepareJsonData : function(context)
         {
-            return { 
-                // email         : this._email.getValue(),
-                // customerGroup : this._getSelectedValue(this._customerGroup),
-            };
+            return this.merge(
+                this.basicInfoJsonData(context)
+            );
+        },
+
+        merge : function() {
+            var obj = {},
+                i = 0,
+                il = arguments.length,
+                key;
+            for (; i < il; i++) {
+                for (key in arguments[i]) {
+                    if (arguments[i].hasOwnProperty(key)) {
+                        obj[key] = arguments[i][key];
+                    }
+                }
+            }
+            return obj;
         }
     }
 });
