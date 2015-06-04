@@ -19,7 +19,7 @@ qx.Class.define("widgets.Ckeditor", {
         this.addListenerOnce("appear", function(e) {
 
             var el = this.getContentElement().getDomElement();
-            var hint = this.getSizeHint();
+            // var hint = this.getSizeHint();
 
             this.__ckEditor = CKEDITOR.replace(el, {
 
@@ -62,13 +62,21 @@ qx.Class.define("widgets.Ckeditor", {
 
         __ckEditor: null,
 
-        linkTo: function(savebutton) {
-            savebutton.addListener("execute", function() {
-                var old = this.getValue();
+        linkTo: function(saveButton) {
+            saveButton.addListener("execute", function() {
+
+                // var old = this.getValue();
+                var old = this.__ckEditor._.data;
+
                 this.__ckEditor.updateElement();
-                var val = this.getValue();
+
+                // var val = this.getValue();
+                var val = this.__ckEditor._.data;
+
                 if (old != val) {
                     this.fireDataEvent("changeValue", val, old);
+                    this.setValue(val);
+                    console.log("Ckeditor data: ", this.getValue());
                 }
             }, this);
         }
