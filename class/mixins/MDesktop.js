@@ -36,6 +36,8 @@ qx.Mixin.define("mixins.MDesktop",
 
         openWindow : function(winName, name)
         {
+            window.$_activeWindow = winName;
+
             if (window.$_erp[winName] === undefined) {
 
                 /**

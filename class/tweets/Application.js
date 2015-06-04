@@ -18,6 +18,7 @@ qx.Class.define("tweets.Application",
             window.$_erp = [];
             window.$_desktop = null;
             window.$_statusBar = null;
+            window.$_activeWindow = null;
         },
 
         initWindows : function()
@@ -28,16 +29,16 @@ qx.Class.define("tweets.Application",
              */
 
             // Items
-            new erp.items.create.Index;
+            erp.items.create.Index;
 
             // Customers
-            new erp.customers.create.Index;
+            erp.customers.create.Index;
 
             // Samples
-            new erp.samples.AppWindow1;
-            new erp.samples.AppWindow2;
-            new erp.samples.AppWindow3;
-            new erp.samples.BasicWindow;
+            erp.samples.AppWindow1;
+            erp.samples.AppWindow2;
+            erp.samples.AppWindow3;
+            erp.samples.BasicWindow;
         },
 
         main : function()

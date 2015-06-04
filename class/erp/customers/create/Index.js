@@ -5,17 +5,24 @@ qx.Class.define("erp.customers.create.Index",
 {
     extend : qx.ui.window.Window,
 
+    include : [
+        mixins.MAjax,
+        erp.customers.create.mixins.MDataValidator,
+        erp.customers.create.mixins.MDataJson
+    ],
+
     construct : function()
     {
         this.base(arguments, "Create new customer", "icon/16/apps/internet-feed-reader.png");
         this.setLayout(new qx.ui.layout.VBox());
         this.addTabs();
         this.submitButtons();
+        this.setValidation(this.dataTab);
     },
 
     members :
     {
-        dataTab : new erp.customers.create.pages.Data,
+        dataTab : new erp.customers.create.pages.Data(),
 
         addTabs : function()
         { 
@@ -48,7 +55,7 @@ qx.Class.define("erp.customers.create.Index",
             saveBtn.setWidth(100);
             saveBtn.addListener("execute", function() {
                 // return type can not be used because of async validation
-                this.dataTab.manager.validate()
+                this.vManager.validate()
             }, this);
             btnRow.add(saveBtn);
 

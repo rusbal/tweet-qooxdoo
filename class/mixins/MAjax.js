@@ -3,32 +3,17 @@
  */
 qx.Mixin.define("mixins.MAjax",
 {
+    include : [mixins.MUrls],
+
     members :
     {
-        _getSelectedValue : function(select)
+        submitData : function(erpModule, context)
         {
-            var selection = select.getSelection(),
-                value = null;
-
-            if (selection.length > 0) {
-                value = selection[0].getLabel();
+            var url = this.getUrl(erpModule);
+            if (url) {
+                var json = window.$_erp[window.$_activeWindow].prepareJsonData(context);
+                this.submitToUrl(url, JSON.stringify(json));
             }
-            return value;
-        },
-
-        submitData : function(erpModule)
-        {
-            var url = "/";
-            var json;
-
-            switch (erpModule) {
-                case "customers.create":
-                    url = "/phalcon/create_new_customer.php";
-                    json = this.customerCreateJson();
-                    break;
-            }
-
-            this.submitToUrl(url, JSON.stringify(json));
         },
 
         submitToUrl : function(url, jsonString)

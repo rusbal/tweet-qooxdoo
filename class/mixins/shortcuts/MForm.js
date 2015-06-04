@@ -49,6 +49,17 @@ qx.Mixin.define("mixins.shortcuts.MForm",
                 s.add(new qx.ui.form.ListItem(options[i]));
             }
             return s;
+        },
+
+        _getSelectedValue : function(select)
+        {
+            var selection = select.getSelection(),
+                value = null;
+
+            if (selection.length > 0) {
+                value = selection[0].getLabel();
+            }
+            return value;
         }
     }
 });

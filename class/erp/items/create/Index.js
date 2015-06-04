@@ -2,6 +2,11 @@ qx.Class.define("erp.items.create.Index",
 {
     extend : qx.ui.window.Window,
 
+    include : [
+        erp.items.create.mixins.MJson,
+        erp.items.create.mixins.MBasicInfoValidator
+    ],
+
     construct : function()
     {
         this.base(arguments, "Items : Create : Index", "icon/16/apps/internet-feed-reader.png");
@@ -17,13 +22,13 @@ qx.Class.define("erp.items.create.Index",
         /**
          * Validation
          */
-        manager : new qx.ui.form.validation.Manager(),
+        validMgr : new qx.ui.form.validation.Manager(),
 
         addTabs : function()
         {
             var tabView = new qx.ui.tabview.TabView;
 
-            tabView.add(new erp.items.create.pages.BasicInfo(this.manager));
+            tabView.add(new erp.items.create.pages.BasicInfo(this.validMgr));
 
             var tab2 = new qx.ui.tabview.Page("Categories");
             tabView.add(tab2);
@@ -70,7 +75,7 @@ qx.Class.define("erp.items.create.Index",
             saveBtn.setWidth(100);
             saveBtn.addListener("execute", function() {
                 // return type can not be used because of async validation
-                this.manager.validate()
+                this.validMgr.validate()
             }, this);
             btnRow.add(saveBtn);
 

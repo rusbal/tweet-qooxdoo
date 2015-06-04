@@ -7,7 +7,6 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
         mixins.MSettings,
         mixins.shortcuts.MForm
         // mixins.data.MItem,
-        // erp.items.create.pages.validators.MData
     ],
 
     construct: function(manager) {
@@ -27,62 +26,12 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
 
         this.basicInformation();
 
-        this.validation(manager);
+        // this.validation();
     },
 
     members: {
 
         composite : null,
-
-        /**
-         * Called from MAjax.js
-         */
-        itemCreateJson : function()
-        {
-            return { 
-                email         : this._email.getValue(),
-                active        : this._active.getValue(),
-                password      : this._password.getValue()
-            };
-        },
-
-        /**
-         * Validation
-         */
-        validation: function(manager) {
-
-            manager.add(this._email, qx.util.Validate.email());
-            manager.add(this._active);
-            manager.add(this._password, this.passwordLengthValidator);
-            manager.add(this._confirmPassword, this.passwordLengthValidator);
-
-            /**
-             * Add a validator to the manager itself (passwords mut be equal)
-             */
-            var _this = this;
-
-            manager.setValidator(function(items) {
-                var valid = true;
-
-                // var msgRequired = "This field is required";
-                // if (!_this._getSelectedValue(_this._itemGroup)) {
-                //     valid = false;
-                //     _this._itemGroup.setInvalidMessage(msgRequired);
-                //     _this._itemGroup.setValid(false);
-                // }
-                return valid;
-            });
-
-            // add a listener to the form manager for the validation complete
-            manager.addListener("complete", function() {
-                if (manager.getValid()) {
-                    console.log("Submitting data...");
-                    this.submitData("items.create");
-                } else {
-                    console.log(manager.getInvalidMessages().join("\n"));
-                }
-            }, this);
-        },
 
         /**
          * Basic information
