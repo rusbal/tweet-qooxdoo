@@ -28,7 +28,7 @@ qx.Mixin.define("erp.items.create.pages.boxes.MBasicInfo",
             layout.setColumnFlex(3, 1);
             layout.setColumnMinWidth(3, 200);
 
-            layout.setColumnWidth(0, 130);
+            layout.setColumnWidth(0, 160);
             layout.setColumnWidth(1, 200);
             layout.setColumnWidth(2, 140);
             layout.setColumnWidth(3, 200);

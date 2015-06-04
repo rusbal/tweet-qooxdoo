@@ -27,6 +27,17 @@ qx.Mixin.define("mixins.data.MItem",
             return [
                 "Standard"
             ];
+        },
+        selectUnit : function()
+        {
+            return [
+                "Gramm",
+                "Kilogram",
+                "Ifm",
+                "Liter",
+                "Paket(e)",
+                "Stuck"
+            ];
         }
     }
 });

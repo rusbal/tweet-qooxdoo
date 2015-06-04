@@ -11,6 +11,8 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
         erp.items.create.pages.boxes.MBasicInfo,
         erp.items.create.pages.boxes.MDescription,
         erp.items.create.pages.boxes.MMetaInfo,
+        erp.items.create.pages.boxes.MBasePriceCalc,
+        erp.items.create.pages.boxes.MItemSettings,
         erp.items.create.pages.boxes.MAddlFields
     ],
 
@@ -22,8 +24,8 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
 
         var scroller = new qx.ui.container.Scroll().set({
             height: this.availableTabWindowHeight(),
-            width: 750,
-            minWidth: 750
+            width: 780,
+            minWidth: 780
         });
         this.add(scroller);
 
@@ -34,6 +36,8 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
         this.basicInformation();
         this.description();
         this.metaInfo();
+        this.basePriceCalc();
+        this.settings();
         this.addlFields();
     },
 

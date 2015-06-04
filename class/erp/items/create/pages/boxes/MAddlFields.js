@@ -15,7 +15,7 @@ qx.Mixin.define("erp.items.create.pages.boxes.MAddlFields",
             var layout = new qx.ui.layout.Grid(9, 5);
             layout.setColumnAlign(0, "right", "top");
             layout.setColumnFlex(1, 1);
-            layout.setColumnWidth(0, 130);
+            layout.setColumnWidth(0, 160);
             
             this._addlFieldsGroup = new qx.ui.groupbox.GroupBox("Additional fields");
             this._addlFieldsGroup.setLayout(layout);
@@ -23,7 +23,7 @@ qx.Mixin.define("erp.items.create.pages.boxes.MAddlFields",
         },
 
         addlFieldsInitFields: function() {
-            this._freitext1 = this._(new qx.ui.form.TextField(), false);
+            this._freiText1 = this._(new qx.ui.form.TextField(), false);
             this._freiText2 = this._(new qx.ui.form.TextField(), false);
             this._kommentar = this._(new qx.ui.form.TextArea(), false);
         },
@@ -37,7 +37,7 @@ qx.Mixin.define("erp.items.create.pages.boxes.MAddlFields",
             this._addlFieldsGroup.add(this.makeLabel("Freitext-2", false), { row: 1, column: 0 }); 
             this._addlFieldsGroup.add(this.makeLabel("Kommentar", false),  { row: 2, column: 0 }); 
 
-            this._addlFieldsGroup.add(this._freitext1, { row: 0, column: 1 });
+            this._addlFieldsGroup.add(this._freiText1, { row: 0, column: 1 });
             this._addlFieldsGroup.add(this._freiText2, { row: 1, column: 1 });
             this._addlFieldsGroup.add(this._kommentar, { row: 2, column: 1 });
         }

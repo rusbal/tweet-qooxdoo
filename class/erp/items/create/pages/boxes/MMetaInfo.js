@@ -15,7 +15,7 @@ qx.Mixin.define("erp.items.create.pages.boxes.MMetaInfo",
             var layout = new qx.ui.layout.Grid(9, 5);
             layout.setColumnAlign(0, "right", "top");
             layout.setColumnFlex(1, 1);
-            layout.setColumnWidth(0, 130);
+            layout.setColumnWidth(0, 160);
             
             this._metaInfoGroup = new qx.ui.groupbox.GroupBox("Meta information");
             this._metaInfoGroup.setLayout(layout);
