@@ -186,7 +186,10 @@ qx.Class.define("erp.customers.create.pages.Data", {
             this._zipCode      = this._(new qx.ui.form.TextField(), true);
             this._city         = this._(new qx.ui.form.TextField(), true);
             this._country      = this._(this.makeSelection(this.selectCountries()), false);
-            this._dateOfBirth  = this._(new qx.ui.form.TextField(), false);
+
+            this._dateOfBirth  = this._(new qx.ui.form.DateField(), false);
+            this._dateOfBirth.setDateFormat(new qx.util.format.DateFormat("d/M/y"));
+
             this._company      = this._(new qx.ui.form.TextField(), false);
             this._department   = this._(new qx.ui.form.TextField(), false);
             this._vatId        = this._(new qx.ui.form.TextField(), false);

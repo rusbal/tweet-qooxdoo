@@ -1,3 +1,6 @@
+/**
+ * @lint ignoreDeprecated(alert)
+ */
 qx.Class.define("containers.toolbars.Menu",
 {
     extend : qx.ui.toolbar.ToolBar,
