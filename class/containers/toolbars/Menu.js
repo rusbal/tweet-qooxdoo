@@ -1,7 +1,7 @@
 qx.Class.define("containers.toolbars.Menu",
 {
     extend : qx.ui.toolbar.ToolBar,
-    include : [mixins.MStatus],
+    include : [mixins.MDesktop],
     construct : function()
     {
         this.base(arguments);

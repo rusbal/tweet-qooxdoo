@@ -4,7 +4,7 @@
 qx.Class.define("tweets.Application",
 {
     extend : qx.application.Standalone,
-    include : [mixins.MStatus],
+    include : [mixins.MDesktop],
     members :
     {
         contentWindow : null,

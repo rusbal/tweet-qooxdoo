@@ -6,8 +6,8 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
         mixins.MAjax,
         mixins.MSettings,
         mixins.shortcuts.MForm
-        // mixins.data.MCustomer,
-        // erp.customers.create.pages.validators.MData
+        // mixins.data.MItem,
+        // erp.items.create.pages.validators.MData
     ],
 
     construct: function(manager) {
@@ -37,7 +37,7 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
         /**
          * Called from MAjax.js
          */
-        customerCreateJson : function()
+        itemCreateJson : function()
         {
             return { 
                 email         : this._email.getValue(),
@@ -65,10 +65,10 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
                 var valid = true;
 
                 // var msgRequired = "This field is required";
-                // if (!_this._getSelectedValue(_this._customerGroup)) {
+                // if (!_this._getSelectedValue(_this._itemGroup)) {
                 //     valid = false;
-                //     _this._customerGroup.setInvalidMessage(msgRequired);
-                //     _this._customerGroup.setValid(false);
+                //     _this._itemGroup.setInvalidMessage(msgRequired);
+                //     _this._itemGroup.setValid(false);
                 // }
                 return valid;
             });
@@ -90,7 +90,7 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
         _basicGroup: null,
 
         _email           : null,
-        _customerGroup   : null,
+        _itemGroup   : null,
         _shop            : null,
         _active          : null,
         _password        : null,
@@ -119,7 +119,7 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
 
         basicInformationInitFields: function() {
             this._email           = this._(new qx.ui.form.TextField(), true);
-            // this._customerGroup   = this._(this.makeSelection(this.selectCustomerGroup()), true);
+            // this._itemGroup   = this._(this.makeSelection(this.selectItemGroup()), true);
             // this._shop            = this._(this.makeSelection(this.selectShop(), true, "0"), false);
             this._active          = this._(new qx.ui.form.CheckBox("Mark the account as active"), false);
             this._password        = this._(new qx.ui.form.PasswordField(), true);
@@ -132,11 +132,11 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
             this.basicInformationInitFields();
 
             this._basicGroup.add(this.makeLabel("Email", true),            { row: 0, column: 0 }); 
-            this._basicGroup.add(this.makeLabel("Customer group", true),   { row: 1, column: 0 }); 
+            this._basicGroup.add(this.makeLabel("Item group", true),   { row: 1, column: 0 }); 
             this._basicGroup.add(this.makeLabel("Shop", false),            { row: 2, column: 0 }); 
 
             this._basicGroup.add(this._email,           { row: 0, column: 1 }); 
-            // this._basicGroup.add(this._customerGroup,   { row: 1, column: 1 }); 
+            // this._basicGroup.add(this._itemGroup,   { row: 1, column: 1 }); 
             // this._basicGroup.add(this._shop,            { row: 2, column: 1 });
 
             this._basicGroup.add(this.makeLabel("Active", false),          { row: 0, column: 2 }); 

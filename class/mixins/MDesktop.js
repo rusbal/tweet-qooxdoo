@@ -1,4 +1,4 @@
-qx.Mixin.define("mixins.MStatus",
+qx.Mixin.define("mixins.MDesktop",
 {
     members :
     {
@@ -27,6 +27,13 @@ qx.Mixin.define("mixins.MStatus",
             menu.menu.add(btn);
         },
 
+        moveToX : 400,
+
+        getMoveToX : function()
+        {
+            return this.moveToX = (this.moveToX >= 400 ? 0 : this.moveToX += 100);
+        },
+
         openWindow : function(winName, name)
         {
             if (window.$_erp[winName] === undefined) {
@@ -45,7 +52,7 @@ qx.Mixin.define("mixins.MStatus",
             window.$_erp[winName].restore();
 
             // TODO: Improve auto-positioning of windows
-            window.$_erp[winName].moveTo(100, 0);
+            window.$_erp[winName].moveTo(this.getMoveToX(), 0);
         }
     }
 });
