@@ -27,7 +27,10 @@ qx.Mixin.define("mixins.shortcuts.MForm",
         makeLabel : function(label, isRequired)
         {
             var lbl = label + (isRequired ? " <span style='color:red'>*</span> : " : " : ")
-            var lblObj = new qx.ui.basic.Label(lbl);
+            var lblObj = new qx.ui.basic.Label(lbl).set({
+                allowShrinkX: false,
+                paddingTop: 3
+            });
             lblObj.setRich(true);
             return lblObj;
         },
