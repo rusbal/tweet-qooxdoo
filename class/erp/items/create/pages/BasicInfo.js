@@ -8,7 +8,7 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
         mixins.shortcuts.MForm,
         mixins.data.MItem,
 
-        erp.items.create.pages.box.MBasicInfo
+        erp.items.create.pages.boxes.MBasicInfo
     ],
 
     construct: function(manager) {

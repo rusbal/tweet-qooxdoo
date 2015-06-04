@@ -1,4 +1,4 @@
-qx.Mixin.define("erp.items.create.pages.box.MBasicInfo",
+qx.Mixin.define("erp.items.create.pages.boxes.MBasicInfo",
 {
     members :
     {
