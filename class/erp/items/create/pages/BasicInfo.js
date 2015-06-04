@@ -8,12 +8,15 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
         mixins.shortcuts.MForm,
         mixins.data.MItem,
 
-        erp.items.create.pages.boxes.MBasicInfo
+        erp.items.create.pages.boxes.MBasicInfo,
+        erp.items.create.pages.boxes.MDescription
     ],
 
-    construct: function(manager) {
+    construct: function(saveBtn) {
         this.base(arguments, "Data");
         this.setLayout(new qx.ui.layout.VBox());
+
+        this.saveBtn = saveBtn;
 
         var scroller = new qx.ui.container.Scroll().set({
             height: this.availableTabWindowHeight(),
@@ -27,11 +30,13 @@ qx.Class.define("erp.items.create.pages.BasicInfo", {
         scroller.add(this.composite);
 
         this.basicInformation();
+        this.description();
     },
 
     members: {
 
-        composite : null
+        composite : null,
+        saveBtn : null
 
     }
 });

@@ -12,14 +12,20 @@ qx.Class.define("erp.items.create.Index",
     {
         this.base(arguments, "Item details: new item", "icon/16/apps/internet-feed-reader.png");
         this.setLayout(new qx.ui.layout.VBox());
+
+        this.basicInfoTab = new erp.items.create.pages.BasicInfo(this.saveBtn);
+
         this.addTabs();
+
         this.submitButtons();
         this.setValidation(this.basicInfoTab);
     },
 
     members :
     {
-        basicInfoTab : new erp.items.create.pages.BasicInfo(),
+        saveBtn : new qx.ui.form.Button("Save", "icon/16/actions/document-save.png"),
+
+        basicInfoTab : null,
 
         addTabs : function()
         {
@@ -68,13 +74,12 @@ qx.Class.define("erp.items.create.Index",
             }, this);
             btnRow.add(cancelBtn);
 
-            var saveBtn = new qx.ui.form.Button("Save", "icon/16/actions/document-save.png");
-            saveBtn.setWidth(100);
-            saveBtn.addListener("execute", function() {
+            this.saveBtn.setWidth(100);
+            this.saveBtn.addListener("execute", function() {
                 // return type can not be used because of async validation
                 this.vManager.validate()
             }, this);
-            btnRow.add(saveBtn);
+            btnRow.add(this.saveBtn);
 
             this.add(btnRow);
         }
