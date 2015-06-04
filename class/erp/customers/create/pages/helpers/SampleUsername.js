@@ -1,7 +1,7 @@
 /**
  * @lint ignoreDeprecated(alert)
  */
-qx.Class.define("erp.customers.create.pages.helpers.Username",
+qx.Class.define("erp.customers.create.pages.helpers.SampleUsername",
 {
     extend : qx.ui.form.validation.AsyncValidator,
 
