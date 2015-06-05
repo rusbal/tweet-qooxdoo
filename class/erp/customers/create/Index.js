@@ -22,11 +22,12 @@ qx.Class.define("erp.customers.create.Index",
 
     members :
     {
-        dataTab : new erp.customers.create.pages.Data(),
+        dataTab : null,
 
         addTabs : function()
         { 
             var tabView = new qx.ui.tabview.TabView;
+            this.dataTab = new erp.customers.create.pages.Data();
             tabView.add(this.dataTab);
             this.add(tabView);
         },

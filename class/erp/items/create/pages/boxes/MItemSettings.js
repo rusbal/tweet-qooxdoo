@@ -19,6 +19,14 @@ qx.Mixin.define("erp.items.create.pages.boxes.MItemSettings",
         _maxOrder            : null,
         _avoidCustGroups     : null,
         _manufacturerNum     : null,
+        _weightBw            : null,
+        _freeShipping        : null,
+        _highlightItem       : null,
+        _onSale              : null,
+        _ean                 : null,
+        _width               : null,
+        _height              : null,
+        _length              : null,
 
         settingsLayout: function() {
             var layout = new qx.ui.layout.Grid(9, 5);
@@ -59,8 +67,15 @@ qx.Mixin.define("erp.items.create.pages.boxes.MItemSettings",
             this._maxOrder            = this._(new qx.ui.form.Spinner(), false);
             this._avoidCustGroups     = this._(this.makeSelection(this.selectCustomerGroups()), false);
 
-
             this._manufacturerNum     = this._(new qx.ui.form.TextField(), false);
+            this._weightBw            = this._(new qx.ui.form.Spinner(), false);
+            this._freeShipping        = this._(new qx.ui.form.CheckBox("Select item as free shipping"), false);
+            this._highlightItem       = this._(new qx.ui.form.CheckBox("Highlight item in shop"), false);
+            this._onSale              = this._(new qx.ui.form.CheckBox("If the stock is <= 0, the item is not available"), false);
+            this._ean                 = this._(new qx.ui.form.TextField(), false);
+            this._width               = this._(new qx.ui.form.Spinner(), false);
+            this._height              = this._(new qx.ui.form.Spinner(), false);
+            this._length              = this._(new qx.ui.form.Spinner(), false);
         },
 
         settings: function() {
@@ -96,9 +111,24 @@ qx.Mixin.define("erp.items.create.pages.boxes.MItemSettings",
             this._settGroup.add(new qx.ui.basic.Label(helpTxt).set({rich : true}), { row: 11, column: 1, colSpan: 3 });
 
             this._settGroup.add(this.makeLabel("Manufacturer number", false),  { row: 0, column: 2 }); 
+            this._settGroup.add(this.makeLabel("Weight (bw)", false),          { row: 1, column: 2 }); 
+            this._settGroup.add(this.makeLabel("Free shipping", false),        { row: 2, column: 2 }); 
+            this._settGroup.add(this.makeLabel("Highlight item", false),       { row: 3, column: 2 }); 
+            this._settGroup.add(this.makeLabel("On sale", false),              { row: 4, column: 2 }); 
+            this._settGroup.add(this.makeLabel("EAN", false),                  { row: 5, column: 2 }); 
+            this._settGroup.add(this.makeLabel("Width", false),                { row: 6, column: 2 }); 
+            this._settGroup.add(this.makeLabel("Height", false),               { row: 7, column: 2 }); 
+            this._settGroup.add(this.makeLabel("Length", false),               { row: 8, column: 2 }); 
+
             this._settGroup.add(this._manufacturerNum,                         { row: 0, column: 3 });
-
-
+            this._settGroup.add(this._weightBw,                                { row: 1, column: 3 });
+            this._settGroup.add(this._freeShipping,                            { row: 2, column: 3 });
+            this._settGroup.add(this._highlightItem,                           { row: 3, column: 3 });
+            this._settGroup.add(this._onSale,                                  { row: 4, column: 3 });
+            this._settGroup.add(this._ean,                                     { row: 5, column: 3 });
+            this._settGroup.add(this._width,                                   { row: 6, column: 3 });
+            this._settGroup.add(this._height,                                  { row: 7, column: 3 });
+            this._settGroup.add(this._length,                                  { row: 8, column: 3 });
         }
     }
 });
